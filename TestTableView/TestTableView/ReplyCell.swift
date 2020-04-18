@@ -25,8 +25,8 @@ class ReplyCell: UITableViewCell {
         return lbl
     }()
     
-    var replyButton: UIButton = {
-        let btn = UIButton()
+    var replyButton: ReplyButton = {
+        let btn = ReplyButton()
         btn.translatesAutoresizingMaskIntoConstraints = false
         btn.setTitle("reply", for: .normal)
         btn.setTitleColor(.black, for: .normal)
@@ -93,6 +93,7 @@ class ReplyCell: UITableViewCell {
     //MARK:- Helper Functions
     private func setUpLayout() {
         self.contentView.addSubview(self.profileImage)
+        //self.replyButton.username = self.replyInfo.userId
         self.profileImage.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 5).isActive = true
         self.profileImage.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 5).isActive = true
         self.contentStack.addArrangedSubview(self.usernameStack)

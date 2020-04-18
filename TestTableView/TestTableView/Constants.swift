@@ -10,4 +10,5 @@ import Foundation
 
 struct Constants {
     static let REPLY_CELL = "ReplyCell"
+    static let TAG_CELL = "TagCell"
 }

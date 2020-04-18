@@ -19,6 +19,9 @@
 		A27D3DFD2448D3040035EF01 /* ReplyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27D3DFC2448D3040035EF01 /* ReplyCell.swift */; };
 		A27D3DFF2448DC320035EF01 /* ReplyTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27D3DFE2448DC320035EF01 /* ReplyTableView.swift */; };
 		A27D3E012449376D0035EF01 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27D3E002449376D0035EF01 /* Constants.swift */; };
+		A27D3E03244A24FA0035EF01 /* ReplyButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27D3E02244A24FA0035EF01 /* ReplyButton.swift */; };
+		A27D3E05244A59250035EF01 /* TagTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27D3E04244A59250035EF01 /* TagTableView.swift */; };
+		A27D3E07244A5A7E0035EF01 /* TagCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27D3E06244A5A7E0035EF01 /* TagCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +60,9 @@
 		A27D3DFC2448D3040035EF01 /* ReplyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReplyCell.swift; sourceTree = "<group>"; };
 		A27D3DFE2448DC320035EF01 /* ReplyTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReplyTableView.swift; sourceTree = "<group>"; };
 		A27D3E002449376D0035EF01 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		A27D3E02244A24FA0035EF01 /* ReplyButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReplyButton.swift; sourceTree = "<group>"; };
+		A27D3E04244A59250035EF01 /* TagTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagTableView.swift; sourceTree = "<group>"; };
+		A27D3E06244A5A7E0035EF01 /* TagCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,6 +124,9 @@
 				A27D3DFC2448D3040035EF01 /* ReplyCell.swift */,
 				A27D3DFE2448DC320035EF01 /* ReplyTableView.swift */,
 				A27D3E002449376D0035EF01 /* Constants.swift */,
+				A27D3E02244A24FA0035EF01 /* ReplyButton.swift */,
+				A27D3E04244A59250035EF01 /* TagTableView.swift */,
+				A27D3E06244A5A7E0035EF01 /* TagCell.swift */,
 			);
 			path = TestTableView;
 			sourceTree = "<group>";
@@ -273,10 +282,13 @@
 			files = (
 				A27D3DCF2448C5570035EF01 /* ViewController.swift in Sources */,
 				A27D3DCB2448C5570035EF01 /* AppDelegate.swift in Sources */,
+				A27D3E07244A5A7E0035EF01 /* TagCell.swift in Sources */,
 				A27D3DFD2448D3040035EF01 /* ReplyCell.swift in Sources */,
+				A27D3E03244A24FA0035EF01 /* ReplyButton.swift in Sources */,
 				A27D3DFB2448C8330035EF01 /* Reply.swift in Sources */,
 				A27D3E012449376D0035EF01 /* Constants.swift in Sources */,
 				A27D3DFF2448DC320035EF01 /* ReplyTableView.swift in Sources */,
+				A27D3E05244A59250035EF01 /* TagTableView.swift in Sources */,
 				A27D3DCD2448C5570035EF01 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
