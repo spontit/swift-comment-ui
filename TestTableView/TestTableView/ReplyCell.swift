@@ -22,6 +22,7 @@ class ReplyCell: UITableViewCell {
     private var usernameLabel: UILabel = {
         let lbl = UILabel()
         lbl.translatesAutoresizingMaskIntoConstraints = false
+        lbl.font = UIFont.boldSystemFont(ofSize: 16)
         return lbl
     }()
     
@@ -32,16 +33,15 @@ class ReplyCell: UITableViewCell {
         btn.setTitleColor(.black, for: .normal)
         btn.widthAnchor.constraint(equalToConstant: 50).isActive = true
         btn.heightAnchor.constraint(equalToConstant: 30).isActive = true
-        btn.layer.borderColor = UIColor.black.cgColor
         return btn
     }()
     
-    private var replyTextView : UITextView = {
+    var replyTextView : UITextView = {
         let tv = UITextView()
         tv.translatesAutoresizingMaskIntoConstraints = false
         tv.isEditable = false
         tv.isScrollEnabled = false
-        tv.backgroundColor = .lightGray
+        tv.backgroundColor = .clear
         return tv
     }()
     
@@ -51,6 +51,7 @@ class ReplyCell: UITableViewCell {
         vw.heightAnchor.constraint(equalToConstant: 50).isActive = true
         vw.widthAnchor.constraint(equalToConstant: 50).isActive = true
         vw.backgroundColor = UIColor.gray
+        vw.circleView(for: 50)
         return vw
     }()
     
@@ -63,7 +64,7 @@ class ReplyCell: UITableViewCell {
         return lbl
     }()
     
-    private var usernameStack : UIStackView = {
+    private var bottomStack : UIStackView = {
         let stack = UIStackView()
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.axis = .horizontal
@@ -71,10 +72,25 @@ class ReplyCell: UITableViewCell {
         return stack
     }()
     
+    private var spacingView : UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    private var nameContentEmbeddedView : UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = UIColor.lightGray
+        view.curveView()
+        return view
+    }()
+    
     private let contentStack : UIStackView = {
         let stack = UIStackView()
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.backgroundColor = UIColor.gray
+        stack.giveBorder(color: .black)
         stack.axis = .vertical
         stack.spacing = 10
         return stack
@@ -96,13 +112,23 @@ class ReplyCell: UITableViewCell {
         //self.replyButton.username = self.replyInfo.userId
         self.profileImage.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 5).isActive = true
         self.profileImage.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 5).isActive = true
-        self.contentStack.addArrangedSubview(self.usernameStack)
-        self.usernameStack.addArrangedSubview(self.usernameLabel)
-        self.usernameStack.addArrangedSubview(self.timeStamp)
-        self.contentStack.addArrangedSubview(self.replyTextView)
+        self.nameContentEmbeddedView.addSubview(self.usernameLabel)
+        self.nameContentEmbeddedView.addSubview(self.replyTextView)
+        self.bottomStack.addArrangedSubview(self.replyButton)
+        self.bottomStack.addArrangedSubview(self.spacingView)
+        self.bottomStack.addArrangedSubview(self.timeStamp)
+        self.contentStack.addArrangedSubview(self.nameContentEmbeddedView)
+        self.contentStack.addArrangedSubview(self.bottomStack)
         
         self.contentView.addSubview(self.contentStack)
-        self.contentView.addSubview(self.replyButton)
+        self.usernameLabel.topAnchor.constraint(equalTo: self.nameContentEmbeddedView.topAnchor, constant: 5).isActive = true
+        self.usernameLabel.leadingAnchor.constraint(equalTo: self.nameContentEmbeddedView.leadingAnchor, constant: 5).isActive = true
+        self.usernameLabel.trailingAnchor.constraint(equalTo: self.nameContentEmbeddedView.trailingAnchor, constant: -5).isActive = true
+        self.replyTextView.topAnchor.constraint(equalTo: self.usernameLabel.bottomAnchor, constant: 5).isActive = true
+        self.replyTextView.leftAnchor.constraint(equalTo: self.usernameLabel.leftAnchor).isActive = true
+        self.replyTextView.rightAnchor.constraint(equalTo: self.usernameLabel.rightAnchor).isActive = true
+        self.replyTextView.bottomAnchor.constraint(equalTo: self.bottomStack.topAnchor, constant: -15).isActive = true
+        
         self.contentStack.leadingAnchor.constraint(equalTo: self.profileImage.trailingAnchor, constant: 5).isActive = true
         self.contentStack.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 5).isActive = true
         self.contentStack.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -5).isActive = true

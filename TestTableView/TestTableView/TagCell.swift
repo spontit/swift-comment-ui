@@ -19,12 +19,14 @@ class TagCell: UITableViewCell {
         let imgVw = UIImageView()
         imgVw.translatesAutoresizingMaskIntoConstraints = false
         imgVw.backgroundColor = .gray
+        imgVw.circleView(for: 30)
         return imgVw
     }()
     
     var usernameLabel : UILabel = {
         let lbl = UILabel()
         lbl.translatesAutoresizingMaskIntoConstraints = false
+        lbl.font = UIFont.boldSystemFont(ofSize: 14)
         return lbl
     }()
     
@@ -56,6 +58,7 @@ class TagCell: UITableViewCell {
         self.contentView.addSubview(self.overallStack)
         self.overallStack.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 5).isActive = true
         self.overallStack.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -5).isActive = true
+        self.profileImageView.centerYAnchor.constraint(equalTo: self.contentView.centerYAnchor).isActive = true
         
     }
 }
