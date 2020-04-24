@@ -1,20 +1,12 @@
 //
-//  Constants.swift
-//  TestTableView
+//  Extensions.swift
+//  SwiftCommentUI
 //
-//  Created by Zhang Qiuhao on 4/16/20.
-//  Copyright © 2020 Zhang Qiuhao. All rights reserved.
+//  Created by Josh Wolff on 4/23/20.
+//  Copyright © 2020 Spontit. All rights reserved.
 //
 
-import Foundation
 import UIKit
-
-struct Constants {
-    static let REPLY_CELL = "ReplyCell"
-    static let TAG_CELL = "TagCell"
-    
-    static let CORNER_RADIUS : CGFloat = 5.0
-}
 
 extension UIView {
     
@@ -31,14 +23,6 @@ extension UIView {
         self.layer.borderWidth = width
         self.layer.borderColor = color.cgColor
     }
-    
-//    func giveShadow() {
-//        self.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.25).cgColor
-//        self.layer.shadowOffset = CGSize(width: 0.0, height: 2.0)
-//        self.layer.shadowOpacity = 1.0
-//        self.layer.shadowRadius = self.layer.cornerRadius
-//        self.layer.masksToBounds = false
-//    }
     
     func curveView() {
         self.layer.cornerRadius = Constants.CORNER_RADIUS
@@ -80,26 +64,20 @@ extension String {
     }
 }
 
-extension UIFont
-{
-    var isBold: Bool
-    {
+extension UIFont {
+    
+    var isBold: Bool {
         return fontDescriptor.symbolicTraits.contains(.traitBold)
     }
     
-    var isItalic: Bool
-    {
+    var isItalic: Bool {
         return fontDescriptor.symbolicTraits.contains(.traitItalic)
     }
     
-    func setBoldFnc() -> UIFont
-    {
-        if(isBold)
-        {
+    func setBoldFnc() -> UIFont {
+        if self.isBold {
             return self
-        }
-        else
-        {
+        } else {
             var fontAtrAry = fontDescriptor.symbolicTraits
             fontAtrAry.insert([.traitBold])
             let fontAtrDetails = fontDescriptor.withSymbolicTraits(fontAtrAry)
@@ -110,14 +88,10 @@ extension UIFont
         }
     }
     
-    func setItalicFnc()-> UIFont
-    {
-        if(isItalic)
-        {
+    func setItalicFnc()-> UIFont {
+        if self.isItalic {
             return self
-        }
-        else
-        {
+        } else {
             var fontAtrAry = fontDescriptor.symbolicTraits
             fontAtrAry.insert([.traitItalic])
             let fontAtrDetails = fontDescriptor.withSymbolicTraits(fontAtrAry)
@@ -128,19 +102,14 @@ extension UIFont
         }
     }
     
-    func setBoldItalicFnc()-> UIFont
-    {
-        return setBoldFnc().setItalicFnc()
+    func setBoldItalicFnc() -> UIFont {
+        return self.setBoldFnc().setItalicFnc()
     }
     
-    func detBoldFnc() -> UIFont
-    {
-        if(!isBold)
-        {
+    func detBoldFnc() -> UIFont {
+        if !self.isBold {
             return self
-        }
-        else
-        {
+        } else {
             var fontAtrAry = fontDescriptor.symbolicTraits
             fontAtrAry.remove([.traitBold])
             let fontAtrDetails = fontDescriptor.withSymbolicTraits(fontAtrAry)
@@ -151,14 +120,10 @@ extension UIFont
         }
     }
     
-    func detItalicFnc()-> UIFont
-    {
-        if(!isItalic)
-        {
+    func detItalicFnc() -> UIFont {
+        if !self.isItalic {
             return self
-        }
-        else
-        {
+        } else {
             var fontAtrAry = fontDescriptor.symbolicTraits
             fontAtrAry.remove([.traitItalic])
             let fontAtrDetails = fontDescriptor.withSymbolicTraits(fontAtrAry)
@@ -169,33 +134,47 @@ extension UIFont
         }
     }
     
-    func SetNormalFnc()-> UIFont
-    {
-        return detBoldFnc().detItalicFnc()
+    func SetNormalFnc() -> UIFont {
+        return self.detBoldFnc().detItalicFnc()
     }
     
-    func toggleBoldFnc()-> UIFont
-    {
-        if(isBold)
-        {
-            return detBoldFnc()
-        }
-        else
-        {
-            return setBoldFnc()
+    func toggleBoldFnc() -> UIFont {
+        if self.isBold {
+            return self.detBoldFnc()
+        } else {
+            return self.setBoldFnc()
         }
     }
     
-    func toggleItalicFnc()-> UIFont
-    {
-        if(isItalic)
-        {
-            return detItalicFnc()
-        }
-        else
-        {
-            return setItalicFnc()
+    func toggleItalicFnc() -> UIFont {
+        if self.isItalic {
+            return self.detItalicFnc()
+        } else {
+            return self.setItalicFnc()
         }
     }
 }
 
+
+
+extension UITableView {
+    
+    func basicSetUp(rowHeight : CGFloat?, allowsSelection: Bool) {
+        if #available(iOS 11.0, *) {
+            self.insetsContentViewsToSafeArea = true
+            self.contentInsetAdjustmentBehavior = .scrollableAxes
+        } else {
+            // Fallback on earlier versions
+        }
+        
+        self.translatesAutoresizingMaskIntoConstraints = false
+        self.separatorStyle = .none
+        self.isEditing = false
+        self.rowHeight = rowHeight ?? UITableView.automaticDimension
+        self.estimatedRowHeight = self.rowHeight
+        
+        self.allowsSelection = allowsSelection
+        self.allowsMultipleSelection = false
+    }
+    
+}

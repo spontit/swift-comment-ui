@@ -1,9 +1,9 @@
 //
 //  ViewController.swift
-//  TestTableView
+//  SwiftCommentUI
 //
 //  Created by Zhang Qiuhao on 4/16/20.
-//  Copyright © 2020 Zhang Qiuhao. All rights reserved.
+//  Copyright © 2020 Spontit. All rights reserved.
 //
 
 import UIKit
@@ -67,9 +67,23 @@ class ViewController: UIViewController, UITextFieldDelegate{
         }
         self.replyTV.reloadData()
         self.view.addSubview(self.replyTV)
-        self.replyTV.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 5).isActive = true
-        self.replyTV.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 20).isActive = true
-        self.replyTV.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: -5).isActive = true
+        if #available(iOS 11.0, *) {
+            self.replyTV.leadingAnchor.constraint(equalTo:
+                self.view.safeAreaLayoutGuide.leadingAnchor, constant: 5).isActive = true
+            self.replyTV.topAnchor.constraint(equalTo:
+                self.view.safeAreaLayoutGuide.topAnchor, constant: 20).isActive = true
+            self.replyTV.trailingAnchor.constraint(equalTo:
+                self.view.safeAreaLayoutGuide.trailingAnchor, constant: -5).isActive = true
+        } else {
+            // Fallback on earlier versions
+            self.replyTV.leadingAnchor.constraint(equalTo:
+                self.view.leadingAnchor, constant: 5).isActive = true
+            self.replyTV.topAnchor.constraint(equalTo:
+                self.view.topAnchor, constant: 20).isActive = true
+            self.replyTV.trailingAnchor.constraint(equalTo:
+                self.view.trailingAnchor, constant: -5).isActive = true
+        }
+        
         self.replyTV.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 0).isActive = true
         self.view.addSubview(self.tagTV)
         self.textFieldEmbeddedView.addSubview(self.replyField)
@@ -137,7 +151,14 @@ class ViewController: UIViewController, UITextFieldDelegate{
     private func setTagTV() {
         self.tagTV.widthAnchor.constraint(equalToConstant: TagCell.WIDTH).isActive = true
         self.tagTV.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -1 * self.keyboardHeight - 50).isActive = true
-        self.tagTV.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 10).isActive = true
+        if #available(iOS 11.0, *) {
+            self.tagTV.leadingAnchor.constraint(equalTo:
+                self.view.safeAreaLayoutGuide.leadingAnchor, constant: 10).isActive = true
+        } else {
+            // Fallback on earlier versions
+            self.tagTV.leadingAnchor.constraint(equalTo:
+                self.view.leadingAnchor, constant: 10).isActive = true
+        }
         self.tagTV.heightAnchor.constraint(equalToConstant: TagCell.HEIGHT * 5).isActive = true
         self.tagTV.isHidden = true
     }
@@ -177,8 +198,16 @@ class ViewController: UIViewController, UITextFieldDelegate{
         self.replyField.topAnchor.constraint(equalTo: self.textFieldEmbeddedView.topAnchor, constant: 0).isActive = true
         self.view.addSubview(self.textFieldEmbeddedView)
         self.textFieldEmbeddedView.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        self.textFieldEmbeddedView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 0).isActive = true
-        self.textFieldEmbeddedView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: 0).isActive = true
+        if #available(iOS 11.0, *) {
+            self.textFieldEmbeddedView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 0).isActive = true
+            self.textFieldEmbeddedView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: 0).isActive = true
+        } else {
+            // Fallback on earlier versions
+            self.textFieldEmbeddedView.leadingAnchor.constraint(equalTo:
+                self.view.leadingAnchor, constant: 0).isActive = true
+            self.textFieldEmbeddedView.trailingAnchor.constraint(equalTo:
+                self.view.trailingAnchor, constant: 0).isActive = true
+        }
         self.textFieldEmbeddedView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: self.keyboardHeight * -1).isActive = true
         self.textFieldEmbeddedView.isHidden = false
     }

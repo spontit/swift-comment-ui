@@ -1,9 +1,9 @@
 //
 //  ReplyCell.swift
-//  TestTableView
+//  SwiftCommentUI
 //
 //  Created by Zhang Qiuhao on 4/16/20.
-//  Copyright © 2020 Zhang Qiuhao. All rights reserved.
+//  Copyright © 2020 Spontit. All rights reserved.
 //
 
 import Foundation
@@ -11,38 +11,13 @@ import UIKit
 
 class ReplyCell: UITableViewCell {
     
-    //MARK:- Internal Globals
-    var replyInfo: Reply! {
-        didSet {
-            self.usernameLabel.text = self.replyInfo.userId
-            self.replyTextView.text = self.replyInfo.message
-        }
-    }
+    // MARK:- Internal Globals
     
     private var usernameLabel: UILabel = {
         let lbl = UILabel()
         lbl.translatesAutoresizingMaskIntoConstraints = false
         lbl.font = UIFont.boldSystemFont(ofSize: 16)
         return lbl
-    }()
-    
-    var replyButton: ReplyButton = {
-        let btn = ReplyButton()
-        btn.translatesAutoresizingMaskIntoConstraints = false
-        btn.setTitle("reply", for: .normal)
-        btn.setTitleColor(.black, for: .normal)
-        btn.widthAnchor.constraint(equalToConstant: 50).isActive = true
-        btn.heightAnchor.constraint(equalToConstant: 30).isActive = true
-        return btn
-    }()
-    
-    var replyTextView : UITextView = {
-        let tv = UITextView()
-        tv.translatesAutoresizingMaskIntoConstraints = false
-        tv.isEditable = false
-        tv.isScrollEnabled = false
-        tv.backgroundColor = .clear
-        return tv
     }()
     
     private var profileImage : UIImageView = {
@@ -96,7 +71,38 @@ class ReplyCell: UITableViewCell {
         return stack
     }()
     
-    //MARK:- Overriden functions
+    // MARK:- Globals
+    
+    var replyButton: ReplyButton = {
+        let btn = ReplyButton()
+        btn.translatesAutoresizingMaskIntoConstraints = false
+        btn.setTitle("reply", for: .normal)
+        btn.setTitleColor(.black, for: .normal)
+        btn.widthAnchor.constraint(equalToConstant: 50).isActive = true
+        btn.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        return btn
+    }()
+    
+    var replyTextView : UITextView = {
+        let tv = UITextView()
+        tv.translatesAutoresizingMaskIntoConstraints = false
+        tv.isEditable = false
+        tv.isScrollEnabled = false
+        tv.backgroundColor = .clear
+        return tv
+    }()
+    
+    // MARK:- Data
+    
+    var replyInfo: Reply! {
+        didSet {
+            self.usernameLabel.text = self.replyInfo.userId
+            self.replyTextView.text = self.replyInfo.message
+        }
+    }
+    
+    // MARK:- Overriden Functions
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.setUpLayout()
@@ -106,7 +112,8 @@ class ReplyCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    //MARK:- Helper Functions
+    // MARK:- Helper Functions
+    
     private func setUpLayout() {
         self.contentView.addSubview(self.profileImage)
         self.profileImage.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 5).isActive = true
@@ -135,5 +142,11 @@ class ReplyCell: UITableViewCell {
         self.replyButton.topAnchor.constraint(equalTo: self.replyTextView.bottomAnchor, constant: 5).isActive = true
         self.replyButton.leadingAnchor.constraint(equalTo: self.profileImage.trailingAnchor, constant: 5).isActive = true
         self.replyButton.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: -5).isActive = true
+    }
+    
+    // MARK:- Deinit
+    
+    deinit {
+        print("Deinitializing \(Constants.REPLY_CELL).")
     }
 }

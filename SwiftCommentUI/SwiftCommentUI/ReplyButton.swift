@@ -1,16 +1,21 @@
 //
 //  ButtonInfo.swift
-//  TestTableView
+//  SwiftCommentUI
 //
 //  Created by Zhang Qiuhao on 4/17/20.
-//  Copyright © 2020 Zhang Qiuhao. All rights reserved.
+//  Copyright © 2020 Spontit. All rights reserved.
 //
 
 import Foundation
 import UIKit
 
 class ReplyButton : UIButton {
+    
+    // MARK:- Data
+    
     var username: String?
+    
+    // MARK:- Initialization
     
     init() {
         super.init(frame: .zero)
@@ -23,5 +28,11 @@ class ReplyButton : UIButton {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK:- Deinit
+    
+    deinit {
+        print("Deinitializating \(Constants.REPLY_BUTTON).")
     }
 }

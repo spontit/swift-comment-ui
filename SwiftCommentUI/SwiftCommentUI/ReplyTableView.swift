@@ -1,15 +1,17 @@
 //
 //  ReplyTableView.swift
-//  TestTableView
+//  SwiftCommentUI
 //
 //  Created by Zhang Qiuhao on 4/16/20.
-//  Copyright © 2020 Zhang Qiuhao. All rights reserved.
+//  Copyright © 2020 Spontit. All rights reserved.
 //
 
 import Foundation
 import UIKit
 
 class ReplyTableView : UITableView {
+    
+    // MARK:- Initialization
     
     override init(frame: CGRect, style: UITableView.Style) {
         super.init(frame: frame, style: style)
@@ -25,18 +27,10 @@ class ReplyTableView : UITableView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK:- Private Helper Functions
+    
     private func setUp() {
         self.register(ReplyCell.self, forCellReuseIdentifier: Constants.REPLY_CELL)
-        self.insetsContentViewsToSafeArea = true
-        self.contentInsetAdjustmentBehavior = .scrollableAxes
-        
-        self.translatesAutoresizingMaskIntoConstraints = false
-        self.separatorStyle = .none
-        self.isEditing = false
-        self.rowHeight = UITableView.automaticDimension
-        self.estimatedRowHeight = self.rowHeight
-        
-        self.allowsSelection = false
-        self.allowsMultipleSelection = false
+        self.basicSetUp(rowHeight: nil, allowsSelection: false)
     }
 }

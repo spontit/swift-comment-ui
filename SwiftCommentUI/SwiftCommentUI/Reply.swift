@@ -1,18 +1,23 @@
 //
 //  Reply.swift
-//  TestTableView
+//  SwiftCommentUI
 //
 //  Created by Zhang Qiuhao on 4/16/20.
-//  Copyright © 2020 Zhang Qiuhao. All rights reserved.
+//  Copyright © 2020 Spontit. All rights reserved.
 //
 
 import Foundation
 
 struct Reply {
+    
+    // MARK:- Attributes
+    
     var userId: String?
     var itemId: String?
     var message: String?
     var taggedUser: [String]?
+    
+    // MARK:- Initialization
     
     init(userId: String?, itemId: String?) {
         self.userId = userId
@@ -32,6 +37,8 @@ struct Reply {
         self.taggedUser = taggedUser
     }
     
+    // MARK:- Mutating Functions
+    
     mutating func setMessage(message: String?) {
         self.message = message
     }
@@ -39,5 +46,4 @@ struct Reply {
     mutating func setTaggedUser(taggedUser: [String]?) {
         self.taggedUser = taggedUser
     }
-    
 }

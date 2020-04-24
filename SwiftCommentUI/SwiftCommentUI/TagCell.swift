@@ -1,9 +1,9 @@
 //
 //  TagCell.swift
-//  TestTableView
+//  SwiftCommentUI
 //
 //  Created by Zhang Qiuhao on 4/17/20.
-//  Copyright © 2020 Zhang Qiuhao. All rights reserved.
+//  Copyright © 2020 Spontit. All rights reserved.
 //
 
 import Foundation
@@ -11,10 +11,14 @@ import UIKit
 
 class TagCell: UITableViewCell {
     
+    // MARK:- Public Constants
+    
     static let WIDTH: CGFloat = 150
     static let HEIGHT: CGFloat = 35
     static let IMG_DIM: CGFloat = 30
-    //MARK:- Internal Globals
+    
+    // MARK:- Internal Globals
+    
     private var profileImageView : UIImageView = {
         let imgVw = UIImageView()
         imgVw.translatesAutoresizingMaskIntoConstraints = false
@@ -38,7 +42,7 @@ class TagCell: UITableViewCell {
         return stack
     }()
     
-    //MARK:- Overriden Functions
+    // MARK:- Overriden Functions
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -49,7 +53,8 @@ class TagCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    //MARK:- Helper Functions
+    // MARK:- Helper Functions
+    
     private func setUp() {
         self.overallStack.addArrangedSubview(self.profileImageView)
         self.overallStack.addArrangedSubview(self.usernameLabel)
@@ -59,6 +64,11 @@ class TagCell: UITableViewCell {
         self.overallStack.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 5).isActive = true
         self.overallStack.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -5).isActive = true
         self.profileImageView.centerYAnchor.constraint(equalTo: self.contentView.centerYAnchor).isActive = true
-        
+    }
+    
+    // MARK:- Deinit
+    
+    deinit {
+        print("Deinitializing \(Constants.TAG_CELL).")
     }
 }
