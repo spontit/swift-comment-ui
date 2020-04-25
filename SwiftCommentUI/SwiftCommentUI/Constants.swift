@@ -16,3 +16,23 @@ struct Constants {
     
     static let CORNER_RADIUS : CGFloat = 5.0
 }
+
+extension UIBarButtonItem {
+    static func getCancelButton(target: Any, selector: Selector) -> UIBarButtonItem {
+        let cancelBtn = UIBarButtonItem(title: "Cancel", style: .plain, target: target, action: selector)
+        cancelBtn.tintColor = UIColor.white
+        return cancelBtn
+    }
+    
+//    static func getSaveButton(target: Any, selector: Selector) -> UIBarButtonItem {
+//        let saveButton = UIBarButtonItem.init(title: "Save", style: .plain, target: target, action: selector)
+//        saveButton.tintColor = Constants.MAIN_COLOR_BLUE
+//        return saveButton
+//    }
+//    
+//    static func getDoneButton(target: Any, selector: Selector) -> UIBarButtonItem {
+//        let saveButton = UIBarButtonItem.init(title: "Done", style: .plain, target: target, action: selector)
+//        saveButton.tintColor = Constants.MAIN_COLOR_BLUE
+//        return saveButton
+//    }
+}

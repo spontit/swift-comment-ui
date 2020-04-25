@@ -8,30 +8,30 @@
 
 /* Begin PBXBuildFile section */
 		A27D3DCB2448C5570035EF01 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27D3DCA2448C5570035EF01 /* AppDelegate.swift */; };
-		A27D3DCF2448C5570035EF01 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27D3DCE2448C5570035EF01 /* ViewController.swift */; };
 		A27D3DD42448C55C0035EF01 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A27D3DD32448C55C0035EF01 /* Assets.xcassets */; };
-		A27D3DFB2448C8330035EF01 /* Reply.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27D3DFA2448C8330035EF01 /* Reply.swift */; };
-		A27D3DFD2448D3040035EF01 /* ReplyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27D3DFC2448D3040035EF01 /* ReplyCell.swift */; };
-		A27D3DFF2448DC320035EF01 /* ReplyTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27D3DFE2448DC320035EF01 /* ReplyTableView.swift */; };
 		A27D3E012449376D0035EF01 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27D3E002449376D0035EF01 /* Constants.swift */; };
-		A27D3E03244A24FA0035EF01 /* ReplyButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27D3E02244A24FA0035EF01 /* ReplyButton.swift */; };
-		A27D3E05244A59250035EF01 /* TagTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27D3E04244A59250035EF01 /* TagTableView.swift */; };
-		A27D3E07244A5A7E0035EF01 /* TagCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27D3E06244A5A7E0035EF01 /* TagCell.swift */; };
+		A27D3E53245357EC0035EF01 /* Reply.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27D3E52245357EC0035EF01 /* Reply.swift */; };
+		A27D3E592453580A0035EF01 /* TagTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27D3E542453580A0035EF01 /* TagTableView.swift */; };
+		A27D3E5A2453580A0035EF01 /* ReplyTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27D3E552453580A0035EF01 /* ReplyTableView.swift */; };
+		A27D3E5B2453580A0035EF01 /* ReplyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27D3E562453580A0035EF01 /* ReplyCell.swift */; };
+		A27D3E5C2453580A0035EF01 /* ReplyButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27D3E572453580A0035EF01 /* ReplyButton.swift */; };
+		A27D3E5D2453580A0035EF01 /* TagCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27D3E582453580A0035EF01 /* TagCell.swift */; };
+		A27D3E5F245358140035EF01 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27D3E5E245358140035EF01 /* ViewController.swift */; };
 		A7419D9A24527E0F00565BBF /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7419D9924527E0F00565BBF /* Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		A27D3DCA2448C5570035EF01 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		A27D3DCE2448C5570035EF01 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ViewController.swift; path = ../ViewController.swift; sourceTree = "<group>"; };
 		A27D3DD32448C55C0035EF01 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A27D3DD82448C55C0035EF01 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A27D3DFA2448C8330035EF01 /* Reply.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Reply.swift; path = ../Reply.swift; sourceTree = "<group>"; };
-		A27D3DFC2448D3040035EF01 /* ReplyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ReplyCell.swift; path = ../ReplyCell.swift; sourceTree = "<group>"; };
-		A27D3DFE2448DC320035EF01 /* ReplyTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ReplyTableView.swift; path = ../ReplyTableView.swift; sourceTree = "<group>"; };
 		A27D3E002449376D0035EF01 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
-		A27D3E02244A24FA0035EF01 /* ReplyButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ReplyButton.swift; path = ../ReplyButton.swift; sourceTree = "<group>"; };
-		A27D3E04244A59250035EF01 /* TagTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TagTableView.swift; path = ../TagTableView.swift; sourceTree = "<group>"; };
-		A27D3E06244A5A7E0035EF01 /* TagCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TagCell.swift; path = ../TagCell.swift; sourceTree = "<group>"; };
+		A27D3E52245357EC0035EF01 /* Reply.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Reply.swift; path = SwiftCommentUI/Reply.swift; sourceTree = SOURCE_ROOT; };
+		A27D3E542453580A0035EF01 /* TagTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TagTableView.swift; path = SwiftCommentUI/TagTableView.swift; sourceTree = SOURCE_ROOT; };
+		A27D3E552453580A0035EF01 /* ReplyTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ReplyTableView.swift; path = SwiftCommentUI/ReplyTableView.swift; sourceTree = SOURCE_ROOT; };
+		A27D3E562453580A0035EF01 /* ReplyCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ReplyCell.swift; path = SwiftCommentUI/ReplyCell.swift; sourceTree = SOURCE_ROOT; };
+		A27D3E572453580A0035EF01 /* ReplyButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ReplyButton.swift; path = SwiftCommentUI/ReplyButton.swift; sourceTree = SOURCE_ROOT; };
+		A27D3E582453580A0035EF01 /* TagCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TagCell.swift; path = SwiftCommentUI/TagCell.swift; sourceTree = SOURCE_ROOT; };
+		A27D3E5E245358140035EF01 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViewController.swift; path = SwiftCommentUI/ViewController.swift; sourceTree = SOURCE_ROOT; };
 		A7419D932452769A00565BBF /* SwiftCommentUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftCommentUI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A7419D9924527E0F00565BBF /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -73,7 +73,7 @@
 		A7419D96245278D700565BBF /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				A27D3DFA2448C8330035EF01 /* Reply.swift */,
+				A27D3E52245357EC0035EF01 /* Reply.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -81,11 +81,11 @@
 		A7419D97245278DC00565BBF /* View */ = {
 			isa = PBXGroup;
 			children = (
-				A27D3DFC2448D3040035EF01 /* ReplyCell.swift */,
-				A27D3E06244A5A7E0035EF01 /* TagCell.swift */,
-				A27D3E02244A24FA0035EF01 /* ReplyButton.swift */,
-				A27D3DFE2448DC320035EF01 /* ReplyTableView.swift */,
-				A27D3E04244A59250035EF01 /* TagTableView.swift */,
+				A27D3E572453580A0035EF01 /* ReplyButton.swift */,
+				A27D3E562453580A0035EF01 /* ReplyCell.swift */,
+				A27D3E552453580A0035EF01 /* ReplyTableView.swift */,
+				A27D3E582453580A0035EF01 /* TagCell.swift */,
+				A27D3E542453580A0035EF01 /* TagTableView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -93,7 +93,7 @@
 		A7419D98245278E000565BBF /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				A27D3DCE2448C5570035EF01 /* ViewController.swift */,
+				A27D3E5E245358140035EF01 /* ViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -167,16 +167,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A27D3DCF2448C5570035EF01 /* ViewController.swift in Sources */,
+				A27D3E5B2453580A0035EF01 /* ReplyCell.swift in Sources */,
 				A27D3DCB2448C5570035EF01 /* AppDelegate.swift in Sources */,
-				A27D3E07244A5A7E0035EF01 /* TagCell.swift in Sources */,
-				A27D3DFD2448D3040035EF01 /* ReplyCell.swift in Sources */,
-				A27D3E03244A24FA0035EF01 /* ReplyButton.swift in Sources */,
+				A27D3E5D2453580A0035EF01 /* TagCell.swift in Sources */,
+				A27D3E5A2453580A0035EF01 /* ReplyTableView.swift in Sources */,
+				A27D3E592453580A0035EF01 /* TagTableView.swift in Sources */,
+				A27D3E5F245358140035EF01 /* ViewController.swift in Sources */,
 				A7419D9A24527E0F00565BBF /* Extensions.swift in Sources */,
-				A27D3DFB2448C8330035EF01 /* Reply.swift in Sources */,
 				A27D3E012449376D0035EF01 /* Constants.swift in Sources */,
-				A27D3DFF2448DC320035EF01 /* ReplyTableView.swift in Sources */,
-				A27D3E05244A59250035EF01 /* TagTableView.swift in Sources */,
+				A27D3E53245357EC0035EF01 /* Reply.swift in Sources */,
+				A27D3E5C2453580A0035EF01 /* ReplyButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

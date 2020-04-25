@@ -42,6 +42,7 @@ extension String {
         guard text != nil && reply.taggedUser != nil else { return }
         let attributedText = NSMutableAttributedString(string: text!)
         for user in reply.taggedUser! {
+            print ("user", user)
             let rangeToAdd = "@" + user
             if let range = text?.range(of: rangeToAdd) {
                 attributedText.addAttributes([NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 16)], range: NSRange(range, in: text!))
@@ -54,10 +55,11 @@ extension String {
         let text = textView.text
         guard text != nil && reply.taggedUser != nil else { return }
         let attributedText = NSMutableAttributedString(string: text!)
+        attributedText.addAttributes([NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16)], range: NSRange(location: 0, length: text!.count))
         for user in reply.taggedUser! {
             let rangeToAdd = "@" + user
             if let range = text?.range(of: rangeToAdd) {
-                attributedText.addAttributes([NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 14)], range: NSRange(range, in: text!))
+                attributedText.addAttributes([NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 16)], range: NSRange(range, in: text!))
                 textView.attributedText = attributedText
             }
         }

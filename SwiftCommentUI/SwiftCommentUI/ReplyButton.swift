@@ -14,6 +14,7 @@ class ReplyButton : UIButton {
     // MARK:- Data
     
     var username: String?
+    var rowNumber: Int?
     
     // MARK:- Initialization
     
@@ -28,6 +29,10 @@ class ReplyButton : UIButton {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func setRowNumber(number: Int?) {
+        self.rowNumber = number
     }
     
     // MARK:- Deinit

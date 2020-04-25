@@ -16,6 +16,9 @@ struct Reply {
     var itemId: String?
     var message: String?
     var taggedUser: [String]?
+    var isPublicationOwner: Bool?
+    var timeStamp: String?
+    var commentId: String?
     
     // MARK:- Initialization
     

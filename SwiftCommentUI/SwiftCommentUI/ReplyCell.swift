@@ -20,15 +20,7 @@ class ReplyCell: UITableViewCell {
         return lbl
     }()
     
-    private var profileImage : UIImageView = {
-        let vw = UIImageView()
-        vw.translatesAutoresizingMaskIntoConstraints = false
-        vw.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        vw.widthAnchor.constraint(equalToConstant: 50).isActive = true
-        vw.backgroundColor = UIColor.gray
-        vw.circleView(for: 50)
-        return vw
-    }()
+    
     
     private var timeStamp : UILabel = {
         let lbl = UILabel()
@@ -73,6 +65,17 @@ class ReplyCell: UITableViewCell {
     
     // MARK:- Globals
     
+    var profileImage : UIImageView = {
+        let vw = UIImageView()
+        vw.translatesAutoresizingMaskIntoConstraints = false
+        vw.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        vw.widthAnchor.constraint(equalToConstant: 50).isActive = true
+        vw.backgroundColor = UIColor.gray
+        vw.circleView(for: 50)
+        vw.isUserInteractionEnabled = true
+        return vw
+    }()
+    
     var replyButton: ReplyButton = {
         let btn = ReplyButton()
         btn.translatesAutoresizingMaskIntoConstraints = false
@@ -80,6 +83,18 @@ class ReplyCell: UITableViewCell {
         btn.setTitleColor(.black, for: .normal)
         btn.widthAnchor.constraint(equalToConstant: 50).isActive = true
         btn.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        btn.giveBorder(color: .blue)
+        return btn
+    }()
+    
+    var likeButton: UIButton = {
+        let btn = UIButton()
+        btn.translatesAutoresizingMaskIntoConstraints = false
+        btn.setTitle("like", for: .normal)
+        btn.setTitleColor(.black, for: .normal)
+        btn.widthAnchor.constraint(equalToConstant: 50).isActive = true
+        btn.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        btn.giveBorder(color: .red)
         return btn
     }()
     
@@ -89,6 +104,7 @@ class ReplyCell: UITableViewCell {
         tv.isEditable = false
         tv.isScrollEnabled = false
         tv.backgroundColor = .clear
+        tv.font = UIFont.systemFont(ofSize: 16)
         return tv
     }()
     
@@ -120,9 +136,10 @@ class ReplyCell: UITableViewCell {
         self.profileImage.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 5).isActive = true
         self.nameContentEmbeddedView.addSubview(self.usernameLabel)
         self.nameContentEmbeddedView.addSubview(self.replyTextView)
+        self.bottomStack.addArrangedSubview(self.likeButton)
         self.bottomStack.addArrangedSubview(self.replyButton)
-        self.bottomStack.addArrangedSubview(self.spacingView)
         self.bottomStack.addArrangedSubview(self.timeStamp)
+        self.bottomStack.addArrangedSubview(self.spacingView)
         self.contentStack.addArrangedSubview(self.nameContentEmbeddedView)
         self.contentStack.addArrangedSubview(self.bottomStack)
         
@@ -139,9 +156,9 @@ class ReplyCell: UITableViewCell {
         self.contentStack.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 5).isActive = true
         self.contentStack.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -5).isActive = true
         self.contentStack.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: -5).isActive = true
-        self.replyButton.topAnchor.constraint(equalTo: self.replyTextView.bottomAnchor, constant: 5).isActive = true
-        self.replyButton.leadingAnchor.constraint(equalTo: self.profileImage.trailingAnchor, constant: 5).isActive = true
-        self.replyButton.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: -5).isActive = true
+//        self.replyButton.topAnchor.constraint(equalTo: self.replyTextView.bottomAnchor, constant: 5).isActive = true
+//        self.replyButton.leadingAnchor.constraint(equalTo: self.profileImage.trailingAnchor, constant: 5).isActive = true
+//        self.replyButton.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: -5).isActive = true
     }
     
     // MARK:- Deinit
