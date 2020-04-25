@@ -156,9 +156,6 @@ class ReplyCell: UITableViewCell {
         self.contentStack.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 5).isActive = true
         self.contentStack.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -5).isActive = true
         self.contentStack.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: -5).isActive = true
-//        self.replyButton.topAnchor.constraint(equalTo: self.replyTextView.bottomAnchor, constant: 5).isActive = true
-//        self.replyButton.leadingAnchor.constraint(equalTo: self.profileImage.trailingAnchor, constant: 5).isActive = true
-//        self.replyButton.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: -5).isActive = true
     }
     
     // MARK:- Deinit
