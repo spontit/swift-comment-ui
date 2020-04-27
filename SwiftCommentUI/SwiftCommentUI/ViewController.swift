@@ -20,6 +20,11 @@ class ViewController: UIViewController, UITextFieldDelegate{
     private var reply: Reply = Reply(userId: "Qiuhao Zhang", itemId: "item")
     
     private var searchedFollowers: [String] = ["my_friend", "test_name", "username", "ones", "helloo", "lololol"]
+    private let profilePictures: [UIImage] = [UIImage(imageLiteralResourceName: "Profile1"),
+                                              UIImage(imageLiteralResourceName: "Profile2"),
+                                              UIImage(imageLiteralResourceName: "Profile3"),
+                                              UIImage(imageLiteralResourceName: "Profile4"),
+                                              UIImage(imageLiteralResourceName: "Profile5"),]
     
     //MARK:- Internal Globals
     private var keyboardHeight : CGFloat = 0
@@ -79,6 +84,26 @@ class ViewController: UIViewController, UITextFieldDelegate{
         self.replyInfos.append(Reply(userId: usernames[2], itemId: "item", message: replies[2]))
         self.replyInfos.append(Reply(userId: usernames[3], itemId: "item", message: replies[3]))
         self.replyInfos.append(Reply(userId: usernames[4], itemId: "item", message: replies[4]))
+        self.replyInfos.append(Reply(userId: usernames[0], itemId: "item", message: replies[0]))
+        self.replyInfos.append(Reply(userId: usernames[1], itemId: "item", message: replies[1]))
+        self.replyInfos.append(Reply(userId: usernames[2], itemId: "item", message: replies[2]))
+        self.replyInfos.append(Reply(userId: usernames[3], itemId: "item", message: replies[3]))
+        self.replyInfos.append(Reply(userId: usernames[4], itemId: "item", message: replies[4]))
+        self.replyInfos.append(Reply(userId: usernames[0], itemId: "item", message: replies[0]))
+        self.replyInfos.append(Reply(userId: usernames[1], itemId: "item", message: replies[1]))
+        self.replyInfos.append(Reply(userId: usernames[2], itemId: "item", message: replies[2]))
+        self.replyInfos.append(Reply(userId: usernames[3], itemId: "item", message: replies[3]))
+        self.replyInfos.append(Reply(userId: usernames[4], itemId: "item", message: replies[4]))
+        self.replyInfos.append(Reply(userId: usernames[0], itemId: "item", message: replies[0]))
+        self.replyInfos.append(Reply(userId: usernames[1], itemId: "item", message: replies[1]))
+        self.replyInfos.append(Reply(userId: usernames[2], itemId: "item", message: replies[2]))
+        self.replyInfos.append(Reply(userId: usernames[3], itemId: "item", message: replies[3]))
+        self.replyInfos.append(Reply(userId: usernames[4], itemId: "item", message: replies[4]))
+        self.replyInfos.append(Reply(userId: usernames[0], itemId: "item", message: replies[0]))
+        self.replyInfos.append(Reply(userId: usernames[1], itemId: "item", message: replies[1]))
+        self.replyInfos.append(Reply(userId: usernames[2], itemId: "item", message: replies[2]))
+        self.replyInfos.append(Reply(userId: usernames[3], itemId: "item", message: replies[3]))
+        self.replyInfos.append(Reply(userId: usernames[4], itemId: "item", message: replies[4]))
         
         self.replyTV.reloadData()
         self.view.addSubview(self.replyTV)
@@ -130,7 +155,6 @@ class ViewController: UIViewController, UITextFieldDelegate{
     
     func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
         self.replyField.resignFirstResponder()
-//        self.replyField.isHidden = true
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -142,8 +166,6 @@ class ViewController: UIViewController, UITextFieldDelegate{
 
         textField.resignFirstResponder()
         textField.text = ""
-//        textField.isHidden = true
-//        self.textFieldEmbeddedView.isHidden = true
         self.textFieldBottomConstraint2.isActive = false
         self.textFieldBottomConstraint1.isActive = true
         self.replyTVBottomConstraint2.isActive = false
@@ -197,7 +219,6 @@ class ViewController: UIViewController, UITextFieldDelegate{
     
     @objc func textFieldDidBeginEditing(_ textField: UITextField) {
         if textField.text?.last == "@" {
-            print("last is @")
             self.isSearching = true
             self.tagTV.isHidden = false
         }
@@ -221,13 +242,11 @@ class ViewController: UIViewController, UITextFieldDelegate{
             let textArray = text!.split(separator: " ")
             for word in textArray {
                 if word.first == "@" {
-                    print("word", word)
                     if self.reply.taggedUser != nil {
                         self.reply.taggedUser!.append(String(word))
                     } else {
                         self.reply.setTaggedUser(taggedUser: [String(word)])
                     }
-                    print("tagged", self.reply.taggedUser)
                     self.reply.message?.boldTaggedUsers(reply: self.reply, textField: textField)
                 }
             }
@@ -244,17 +263,16 @@ class ViewController: UIViewController, UITextFieldDelegate{
         self.setTagTV()
         self.textFieldBottomConstraint2 = self.textFieldEmbeddedView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: self.keyboardHeight * -1)
         self.replyTVBottomConstraint2 = self.replyTV.bottomAnchor.constraint(equalTo: self.textFieldEmbeddedView.topAnchor, constant: -5)
+        self.replyTV.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: self.keyboardHeight, right: 0)
         self.textFieldBottomConstraint1.isActive = false
         self.textFieldBottomConstraint2.isActive = true
         self.replyTVBottomConstraint1.isActive = false
         self.replyTVBottomConstraint2.isActive = true
-        print("keyboardshow")
         self.view.setNeedsLayout()
     }
     
     
     @objc func keyboardWillHide(notification: NSNotification) {
-        print("keyboardhide")
         self.textFieldBottomConstraint2.isActive = false
         self.textFieldBottomConstraint1.isActive = true
         self.replyTVBottomConstraint2.isActive = false
@@ -265,15 +283,14 @@ class ViewController: UIViewController, UITextFieldDelegate{
     
     @objc func replyPressed(_ sender: ReplyButton) {
         if self.textFieldBottomConstraint1.isActive == true {
-            print("true")
+            self.replyField.becomeFirstResponder()
             self.reply.setTaggedUser(taggedUser: [sender.username!])
-            self.replyTV.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: self.keyboardHeight, right: 0)
             self.replyTV.scrollToRow(at: IndexPath(row: sender.rowNumber ?? 0, section: 0), at: .bottom, animated: true)
             let text = "@"+sender.username! + " "
             let attributedText = NSMutableAttributedString(string: text)
             attributedText.addAttributes([NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 16)], range: NSRange(location: 0, length: text.count - 1))
             self.replyField.attributedText = attributedText
-            self.replyField.becomeFirstResponder()
+            
         }
         
     }
@@ -316,6 +333,7 @@ extension ViewController : UITableViewDelegate, UITableViewDataSource {
             cell.replyButton.addTarget(self, action: #selector(replyPressed(_:)), for: .touchUpInside)
             cell.likeButton.addTarget(self, action: #selector(likePressed(_:)), for: .touchUpInside)
             cell.replyInfo.message?.boldTaggedUsers(reply: cell.replyInfo, textView: cell.replyTextView)
+            cell.profileImage.image = self.profilePictures[indexPath.row % 5]
             cell.profileImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.profileImageTouched(_:))))
             return cell
         } else {
