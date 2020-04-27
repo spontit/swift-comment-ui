@@ -41,12 +41,14 @@ extension String {
         let text = textField.text
         guard text != nil && reply.taggedUser != nil else { return }
         let attributedText = NSMutableAttributedString(string: text!)
-        for user in reply.taggedUser! {
-            print ("user", user)
-            let rangeToAdd = "@" + user
-            if let range = text?.range(of: rangeToAdd) {
-                attributedText.addAttributes([NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 16)], range: NSRange(range, in: text!))
-                textField.attributedText = attributedText
+        let stringArray = text!.split(separator: " ")
+        for word in stringArray {
+            if word.first == "@" {
+                let rangeToAdd = String(word)
+                if let range = text?.range(of: rangeToAdd) {
+                    attributedText.addAttributes([NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 16)], range: NSRange(range, in: text!))
+                    textField.attributedText = attributedText
+                }
             }
         }
     }
@@ -56,14 +58,19 @@ extension String {
         guard text != nil && reply.taggedUser != nil else { return }
         let attributedText = NSMutableAttributedString(string: text!)
         attributedText.addAttributes([NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16)], range: NSRange(location: 0, length: text!.count))
-        for user in reply.taggedUser! {
-            let rangeToAdd = "@" + user
-            if let range = text?.range(of: rangeToAdd) {
-                attributedText.addAttributes([NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 16)], range: NSRange(range, in: text!))
-                textView.attributedText = attributedText
+        
+        let stringArray = text!.split(separator: " ")
+        for word in stringArray {
+            if word.first == "@" {
+                let rangeToAdd = String(word)
+                if let range = text?.range(of: rangeToAdd) {
+                    attributedText.addAttributes([NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 16)], range: NSRange(range, in: text!))
+                    textView.attributedText = attributedText
+                }
             }
         }
     }
+    
 }
 
 extension UIFont {

@@ -62,6 +62,7 @@ class ViewController: UIViewController, UITextFieldDelegate{
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        self.replyField.becomeFirstResponder()
         self.replyField.resignFirstResponder()
     }
     
@@ -216,22 +217,22 @@ class ViewController: UIViewController, UITextFieldDelegate{
     
     @objc func textFieldDidEndEditing(_ textField: UITextField) {
         let text = textField.text
-                if text != nil {
-                    let textArray = text!.split(separator: " ")
-                    for word in textArray {
-                        if word.first == "@" {
-                            print("word", word)
-                            if self.reply.taggedUser != nil {
-                                self.reply.taggedUser!.append(String(word))
-                            } else {
-                                self.reply.setTaggedUser(taggedUser: [String(word)])
-                            }
-                            print("tagged", self.reply.taggedUser)
-                            self.reply.message?.boldTaggedUsers(reply: self.reply, textField: textField)
-                        }
+        if text != nil {
+            let textArray = text!.split(separator: " ")
+            for word in textArray {
+                if word.first == "@" {
+                    print("word", word)
+                    if self.reply.taggedUser != nil {
+                        self.reply.taggedUser!.append(String(word))
+                    } else {
+                        self.reply.setTaggedUser(taggedUser: [String(word)])
                     }
-        
+                    print("tagged", self.reply.taggedUser)
+                    self.reply.message?.boldTaggedUsers(reply: self.reply, textField: textField)
                 }
+            }
+
+        }
     }
     
     @objc func keyboardWillShow(notification: NSNotification) {
@@ -247,11 +248,13 @@ class ViewController: UIViewController, UITextFieldDelegate{
         self.textFieldBottomConstraint2.isActive = true
         self.replyTVBottomConstraint1.isActive = false
         self.replyTVBottomConstraint2.isActive = true
+        print("keyboardshow")
         self.view.setNeedsLayout()
     }
     
     
     @objc func keyboardWillHide(notification: NSNotification) {
+        print("keyboardhide")
         self.textFieldBottomConstraint2.isActive = false
         self.textFieldBottomConstraint1.isActive = true
         self.replyTVBottomConstraint2.isActive = false
@@ -262,6 +265,7 @@ class ViewController: UIViewController, UITextFieldDelegate{
     
     @objc func replyPressed(_ sender: ReplyButton) {
         if self.textFieldBottomConstraint1.isActive == true {
+            print("true")
             self.reply.setTaggedUser(taggedUser: [sender.username!])
             self.replyTV.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: self.keyboardHeight, right: 0)
             self.replyTV.scrollToRow(at: IndexPath(row: sender.rowNumber ?? 0, section: 0), at: .bottom, animated: true)
