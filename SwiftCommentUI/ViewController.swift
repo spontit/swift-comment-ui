@@ -11,8 +11,8 @@ import UIKit
 class ViewController: UIViewController, UITextFieldDelegate{
     
     //MARK:- Test Data
-    private let replies : [String] = ["This is 1st reply", "This is 2nd reply This is 2nd reply This is 2nd reply very long very long testing long reply", "This is 3rd reply This is 3rd reply This is 3rd reply long This is 3rd reply This is 3rd reply This is 3rd reply longThis is 3rd reply This is 3rd reply This is 3rd reply long", "This is 4th reply", "This is 5th reply"]
-    private let usernames : [String] = ["zqhqhqh", "zhangqks", "zhang_q_h", "somename", "randomname"]
+    private let replies : [String] = ["I think this is a good idea", "@casey_k Check this out!", "@qiuhao_zhang @casey_k Wow this is so cool!", "This is gonna be exciting, looking forward to it!", "@lisaaaa Look at this!"]
+    private let usernames : [String] = ["qiuhao_zhang", "jacky12", "casey_k", "bobby046", "mr_nick"]
     private let followerNames : [String] = ["my_friend", "test_name", "username", "ones", "helloo", "lololol"]
     
     private var replyInfos: [Reply] = []
@@ -79,31 +79,11 @@ class ViewController: UIViewController, UITextFieldDelegate{
         self.replyField.delegate = self
         self.tagTV.delegate = self
         self.tagTV.dataSource = self
-        self.replyInfos.append(Reply(userId: usernames[0], itemId: "item", message: replies[0]))
-        self.replyInfos.append(Reply(userId: usernames[1], itemId: "item", message: replies[1]))
-        self.replyInfos.append(Reply(userId: usernames[2], itemId: "item", message: replies[2]))
-        self.replyInfos.append(Reply(userId: usernames[3], itemId: "item", message: replies[3]))
-        self.replyInfos.append(Reply(userId: usernames[4], itemId: "item", message: replies[4]))
-        self.replyInfos.append(Reply(userId: usernames[0], itemId: "item", message: replies[0]))
-        self.replyInfos.append(Reply(userId: usernames[1], itemId: "item", message: replies[1]))
-        self.replyInfos.append(Reply(userId: usernames[2], itemId: "item", message: replies[2]))
-        self.replyInfos.append(Reply(userId: usernames[3], itemId: "item", message: replies[3]))
-        self.replyInfos.append(Reply(userId: usernames[4], itemId: "item", message: replies[4]))
-        self.replyInfos.append(Reply(userId: usernames[0], itemId: "item", message: replies[0]))
-        self.replyInfos.append(Reply(userId: usernames[1], itemId: "item", message: replies[1]))
-        self.replyInfos.append(Reply(userId: usernames[2], itemId: "item", message: replies[2]))
-        self.replyInfos.append(Reply(userId: usernames[3], itemId: "item", message: replies[3]))
-        self.replyInfos.append(Reply(userId: usernames[4], itemId: "item", message: replies[4]))
-        self.replyInfos.append(Reply(userId: usernames[0], itemId: "item", message: replies[0]))
-        self.replyInfos.append(Reply(userId: usernames[1], itemId: "item", message: replies[1]))
-        self.replyInfos.append(Reply(userId: usernames[2], itemId: "item", message: replies[2]))
-        self.replyInfos.append(Reply(userId: usernames[3], itemId: "item", message: replies[3]))
-        self.replyInfos.append(Reply(userId: usernames[4], itemId: "item", message: replies[4]))
-        self.replyInfos.append(Reply(userId: usernames[0], itemId: "item", message: replies[0]))
-        self.replyInfos.append(Reply(userId: usernames[1], itemId: "item", message: replies[1]))
-        self.replyInfos.append(Reply(userId: usernames[2], itemId: "item", message: replies[2]))
-        self.replyInfos.append(Reply(userId: usernames[3], itemId: "item", message: replies[3]))
-        self.replyInfos.append(Reply(userId: usernames[4], itemId: "item", message: replies[4]))
+        self.replyInfos.append(Reply(userId: usernames[0], itemId: "item", message: replies[0], taggedUser: [], timeStamp: "1 Hour"))
+        self.replyInfos.append(Reply(userId: usernames[1], itemId: "item", message: replies[1], taggedUser: ["casey_k"], timeStamp: "50 min"))
+        self.replyInfos.append(Reply(userId: usernames[2], itemId: "item", message: replies[2], taggedUser: ["qiuhao_zhang", "casey_k"], timeStamp: "40 min"))
+        self.replyInfos.append(Reply(userId: usernames[3], itemId: "item", message: replies[3], taggedUser: [], timeStamp: "30 min"))
+        self.replyInfos.append(Reply(userId: usernames[4], itemId: "item", message: replies[4], taggedUser: ["lisaaaa"], timeStamp: "10 min"))
         
         self.replyTV.reloadData()
         self.view.addSubview(self.replyTV)
@@ -296,10 +276,10 @@ class ViewController: UIViewController, UITextFieldDelegate{
     }
     
     @objc func likePressed(_ sender: UIButton) {
-        if sender.titleLabel?.text == "like" {
-            sender.setTitle("liked", for: .normal)
+        if sender.currentImage == UIImage(imageLiteralResourceName: "Like") {
+            sender.setImage(UIImage(imageLiteralResourceName: "Liked"), for: .normal)
         } else {
-            sender.setTitle("like", for: .normal)
+            sender.setImage(UIImage(imageLiteralResourceName: "Like"), for: .normal)
         }
     }
     
@@ -335,6 +315,8 @@ extension ViewController : UITableViewDelegate, UITableViewDataSource {
             cell.replyInfo.message?.boldTaggedUsers(reply: cell.replyInfo, textView: cell.replyTextView)
             cell.profileImage.image = self.profilePictures[indexPath.row % 5]
             cell.profileImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.profileImageTouched(_:))))
+            cell.replyInfo.message?.boldTaggedUsers(reply: cell.replyInfo, textView: cell.replyTextView)
+            cell.timeStamp.text = cell.replyInfo.timeStamp
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: Constants.TAG_CELL, for: indexPath) as! TagCell

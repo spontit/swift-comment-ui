@@ -1,0 +1,6 @@
+module Pods_SwiftCommentUI {
+  umbrella header "Pods-SwiftCommentUI-umbrella.h"
+
+  export *
+  module * { export * }
+}

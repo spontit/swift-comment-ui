@@ -40,6 +40,14 @@ struct Reply {
         self.taggedUser = taggedUser
     }
     
+    init(userId: String?, itemId: String?, message: String?, taggedUser: [String]?, timeStamp: String?) {
+        self.userId = userId
+        self.itemId = itemId
+        self.message = message
+        self.taggedUser = taggedUser
+        self.timeStamp = timeStamp
+    }
+    
     // MARK:- Mutating Functions
     
     mutating func setMessage(message: String?) {
@@ -48,5 +56,9 @@ struct Reply {
     
     mutating func setTaggedUser(taggedUser: [String]?) {
         self.taggedUser = taggedUser
+    }
+    
+    mutating func setTimeStamp(time: String?) {
+        self.timeStamp = time
     }
 }

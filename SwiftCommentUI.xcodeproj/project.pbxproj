@@ -18,6 +18,7 @@
 		A27D3E5D2453580A0035EF01 /* TagCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27D3E582453580A0035EF01 /* TagCell.swift */; };
 		A27D3E5F245358140035EF01 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27D3E5E245358140035EF01 /* ViewController.swift */; };
 		A7419D9A24527E0F00565BBF /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7419D9924527E0F00565BBF /* Extensions.swift */; };
+		EC2CE9C2D9AD1E440F0FF456 /* libPods-SwiftCommentUI.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C8BDA7286915F9E620675801 /* libPods-SwiftCommentUI.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +35,9 @@
 		A27D3E5E245358140035EF01 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViewController.swift; path = SwiftCommentUI/ViewController.swift; sourceTree = SOURCE_ROOT; };
 		A7419D932452769A00565BBF /* SwiftCommentUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftCommentUI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A7419D9924527E0F00565BBF /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		C8BDA7286915F9E620675801 /* libPods-SwiftCommentUI.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SwiftCommentUI.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D68DA4EB582F24639FAEDC0D /* Pods-SwiftCommentUI.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftCommentUI.debug.xcconfig"; path = "Target Support Files/Pods-SwiftCommentUI/Pods-SwiftCommentUI.debug.xcconfig"; sourceTree = "<group>"; };
+		F4949FB1D17435FCB09D6414 /* Pods-SwiftCommentUI.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftCommentUI.release.xcconfig"; path = "Target Support Files/Pods-SwiftCommentUI/Pods-SwiftCommentUI.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -41,17 +45,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EC2CE9C2D9AD1E440F0FF456 /* libPods-SwiftCommentUI.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		08ADFFDD1D87DE74032154B8 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				D68DA4EB582F24639FAEDC0D /* Pods-SwiftCommentUI.debug.xcconfig */,
+				F4949FB1D17435FCB09D6414 /* Pods-SwiftCommentUI.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		264F35CF3B7F987E0D080829 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C8BDA7286915F9E620675801 /* libPods-SwiftCommentUI.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		A27D3DBE2448C5560035EF01 = {
 			isa = PBXGroup;
 			children = (
 				A27D3DC92448C5560035EF01 /* SwiftCommentUI */,
 				A7419D932452769A00565BBF /* SwiftCommentUI.app */,
+				08ADFFDD1D87DE74032154B8 /* Pods */,
+				264F35CF3B7F987E0D080829 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -105,6 +129,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = A27D3DF12448C55C0035EF01 /* Build configuration list for PBXNativeTarget "SwiftCommentUI" */;
 			buildPhases = (
+				DBFCCF0C882592905A4B4A59 /* [CP] Check Pods Manifest.lock */,
 				A27D3DC32448C5560035EF01 /* Sources */,
 				A27D3DC42448C5560035EF01 /* Frameworks */,
 				A27D3DC52448C5560035EF01 /* Resources */,
@@ -161,6 +186,31 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		DBFCCF0C882592905A4B4A59 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-SwiftCommentUI-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		A27D3DC32448C5560035EF01 /* Sources */ = {
@@ -299,6 +349,7 @@
 		};
 		A27D3DF22448C55C0035EF01 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D68DA4EB582F24639FAEDC0D /* Pods-SwiftCommentUI.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -318,6 +369,7 @@
 		};
 		A27D3DF32448C55C0035EF01 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F4949FB1D17435FCB09D6414 /* Pods-SwiftCommentUI.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;

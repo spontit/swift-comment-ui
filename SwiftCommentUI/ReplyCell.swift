@@ -21,16 +21,6 @@ class ReplyCell: UITableViewCell {
     }()
     
     
-    
-    private var timeStamp : UILabel = {
-        let lbl = UILabel()
-        lbl.translatesAutoresizingMaskIntoConstraints = false
-        lbl.widthAnchor.constraint(equalToConstant: 30).isActive = true
-        lbl.heightAnchor.constraint(equalToConstant: 30).isActive = true
-        lbl.text = "5H"
-        return lbl
-    }()
-    
     private var bottomStack : UIStackView = {
         let stack = UIStackView()
         stack.translatesAutoresizingMaskIntoConstraints = false
@@ -65,6 +55,14 @@ class ReplyCell: UITableViewCell {
     
     // MARK:- Globals
     
+    var timeStamp : UILabel = {
+        let lbl = UILabel()
+        lbl.translatesAutoresizingMaskIntoConstraints = false
+        lbl.widthAnchor.constraint(equalToConstant: 60).isActive = true
+        lbl.text = "1 min"
+        return lbl
+    }()
+    
     var profileImage : UIImageView = {
         let vw = UIImageView()
         vw.translatesAutoresizingMaskIntoConstraints = false
@@ -90,11 +88,10 @@ class ReplyCell: UITableViewCell {
     var likeButton: UIButton = {
         let btn = UIButton()
         btn.translatesAutoresizingMaskIntoConstraints = false
-        btn.setTitle("like", for: .normal)
-        btn.setTitleColor(.black, for: .normal)
-        btn.widthAnchor.constraint(equalToConstant: 50).isActive = true
+        btn.setImage(UIImage(imageLiteralResourceName: "Like"), for: .normal)
+        btn.widthAnchor.constraint(equalToConstant: 30).isActive = true
         btn.heightAnchor.constraint(equalToConstant: 30).isActive = true
-        btn.giveBorder(color: .red)
+        //btn.giveBorder(color: .red)
         return btn
     }()
     
@@ -136,9 +133,9 @@ class ReplyCell: UITableViewCell {
         self.profileImage.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 5).isActive = true
         self.nameContentEmbeddedView.addSubview(self.usernameLabel)
         self.nameContentEmbeddedView.addSubview(self.replyTextView)
+        self.bottomStack.addArrangedSubview(self.timeStamp)
         self.bottomStack.addArrangedSubview(self.likeButton)
         self.bottomStack.addArrangedSubview(self.replyButton)
-        self.bottomStack.addArrangedSubview(self.timeStamp)
         self.bottomStack.addArrangedSubview(self.spacingView)
         self.contentStack.addArrangedSubview(self.nameContentEmbeddedView)
         self.contentStack.addArrangedSubview(self.bottomStack)
