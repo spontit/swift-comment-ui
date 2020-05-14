@@ -14,8 +14,8 @@ class TagCell: UITableViewCell {
     // MARK:- Public Constants
     
     static let WIDTH: CGFloat = 150
-    static let HEIGHT: CGFloat = 35
-    static let IMG_DIM: CGFloat = 30
+    static let HEIGHT: CGFloat = 50
+    static let IMG_DIM: CGFloat = 45
     
     // MARK:- Internal Globals
     
@@ -23,7 +23,7 @@ class TagCell: UITableViewCell {
         let imgVw = UIImageView()
         imgVw.translatesAutoresizingMaskIntoConstraints = false
         imgVw.backgroundColor = .gray
-        imgVw.circleView(for: 30)
+        imgVw.circleView(for: 45)
         return imgVw
     }()
     

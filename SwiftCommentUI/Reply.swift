@@ -19,18 +19,21 @@ struct Reply {
     var isPublicationOwner: Bool?
     var timeStamp: String?
     var commentId: String?
+    var likeCount: Int?
     
     // MARK:- Initialization
     
     init(userId: String?, itemId: String?) {
         self.userId = userId
         self.itemId = itemId
+        self.likeCount = 0
     }
     
     init(userId: String?, itemId: String?, message: String?) {
         self.userId = userId
         self.itemId = itemId
         self.message = message
+        self.likeCount = 0
     }
     
     init(userId: String?, itemId: String?, message: String?, taggedUser: [String]?) {
@@ -38,6 +41,7 @@ struct Reply {
         self.itemId = itemId
         self.message = message
         self.taggedUser = taggedUser
+        self.likeCount = 0
     }
     
     init(userId: String?, itemId: String?, message: String?, taggedUser: [String]?, timeStamp: String?) {
@@ -46,6 +50,7 @@ struct Reply {
         self.message = message
         self.taggedUser = taggedUser
         self.timeStamp = timeStamp
+        self.likeCount = 0
     }
     
     // MARK:- Mutating Functions

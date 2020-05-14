@@ -25,7 +25,7 @@ class ReplyCell: UITableViewCell {
         let stack = UIStackView()
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.axis = .horizontal
-        stack.spacing = 10
+        stack.spacing = 5
         return stack
     }()
     
@@ -63,6 +63,16 @@ class ReplyCell: UITableViewCell {
         return lbl
     }()
     
+    var likeCount : UILabel = {
+        let lbl = UILabel()
+        lbl.translatesAutoresizingMaskIntoConstraints = false
+        lbl.widthAnchor.constraint(equalToConstant: 20).isActive = true
+        lbl.font = UIFont.systemFont(ofSize: 14)
+        lbl.textColor = .gray
+        lbl.text = "0"
+        return lbl
+    }()
+    
     var profileImage : UIImageView = {
         let vw = UIImageView()
         vw.translatesAutoresizingMaskIntoConstraints = false
@@ -77,21 +87,20 @@ class ReplyCell: UITableViewCell {
     var replyButton: ReplyButton = {
         let btn = ReplyButton()
         btn.translatesAutoresizingMaskIntoConstraints = false
-        btn.setTitle("reply", for: .normal)
-        btn.setTitleColor(.black, for: .normal)
-        btn.widthAnchor.constraint(equalToConstant: 50).isActive = true
+        btn.setTitle("Reply", for: .normal)
+        btn.setTitleColor(.gray, for: .normal)
+        btn.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
+        btn.widthAnchor.constraint(equalToConstant: 40).isActive = true
         btn.heightAnchor.constraint(equalToConstant: 30).isActive = true
-        btn.giveBorder(color: .blue)
         return btn
     }()
     
-    var likeButton: UIButton = {
-        let btn = UIButton()
+    var likeButton: ReplyButton = {
+        let btn = ReplyButton()
         btn.translatesAutoresizingMaskIntoConstraints = false
         btn.setImage(UIImage(imageLiteralResourceName: "Like"), for: .normal)
         btn.widthAnchor.constraint(equalToConstant: 30).isActive = true
         btn.heightAnchor.constraint(equalToConstant: 30).isActive = true
-        //btn.giveBorder(color: .red)
         return btn
     }()
     
@@ -135,6 +144,7 @@ class ReplyCell: UITableViewCell {
         self.nameContentEmbeddedView.addSubview(self.replyTextView)
         self.bottomStack.addArrangedSubview(self.timeStamp)
         self.bottomStack.addArrangedSubview(self.likeButton)
+        self.bottomStack.addArrangedSubview(self.likeCount)
         self.bottomStack.addArrangedSubview(self.replyButton)
         self.bottomStack.addArrangedSubview(self.spacingView)
         self.contentStack.addArrangedSubview(self.nameContentEmbeddedView)

@@ -12,12 +12,12 @@ class ViewController: UIViewController, UITextFieldDelegate{
     
     //MARK:- Test Data
     private let replies : [String] = ["I think this is a good idea", "@casey_k Check this out!", "@qiuhao_zhang @casey_k Wow this is so cool!", "This is gonna be exciting, looking forward to it!", "@lisaaaa Look at this!"]
-    private let usernames : [String] = ["qiuhao_zhang", "jacky12", "casey_k", "bobby046", "mr_nick"]
-    private let followerNames : [String] = ["my_friend", "test_name", "username", "ones", "helloo", "lololol"]
+    private let usernames : [String] = ["spontit_channel", "jacky12", "casey_k", "Kate046", "Mr_Nick"]
+    private let followerNames : [String] = ["casey_k", "samlee393", "bestzoey", "Kate046", "3_yvette", "Johnzzz"]
     
     private var replyInfos: [Reply] = []
     
-    private var reply: Reply = Reply(userId: "Qiuhao Zhang", itemId: "item")
+    private var reply: Reply = Reply(userId: "qiuhao_zhang", itemId: "item")
     
     private var searchedFollowers: [String] = ["my_friend", "test_name", "username", "ones", "helloo", "lololol"]
     private let profilePictures: [UIImage] = [UIImage(imageLiteralResourceName: "Profile1"),
@@ -25,6 +25,7 @@ class ViewController: UIViewController, UITextFieldDelegate{
                                               UIImage(imageLiteralResourceName: "Profile3"),
                                               UIImage(imageLiteralResourceName: "Profile4"),
                                               UIImage(imageLiteralResourceName: "Profile5"),]
+    private let numberOfLikes = [10,4,5,2,1]
     
     //MARK:- Internal Globals
     private var keyboardHeight : CGFloat = 0
@@ -64,6 +65,7 @@ class ViewController: UIViewController, UITextFieldDelegate{
         self.setUp()
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -72,6 +74,7 @@ class ViewController: UIViewController, UITextFieldDelegate{
     }
     
     //MARK:- Helper Functions
+    
     private func setUp() {
         self.view.backgroundColor = .white
         self.replyTV.delegate = self
@@ -84,6 +87,9 @@ class ViewController: UIViewController, UITextFieldDelegate{
         self.replyInfos.append(Reply(userId: usernames[2], itemId: "item", message: replies[2], taggedUser: ["qiuhao_zhang", "casey_k"], timeStamp: "40 min"))
         self.replyInfos.append(Reply(userId: usernames[3], itemId: "item", message: replies[3], taggedUser: [], timeStamp: "30 min"))
         self.replyInfos.append(Reply(userId: usernames[4], itemId: "item", message: replies[4], taggedUser: ["lisaaaa"], timeStamp: "10 min"))
+        for i in 0..<self.replyInfos.count {
+            self.replyInfos[i].likeCount = self.numberOfLikes[i]
+        }
         
         self.replyTV.reloadData()
         self.view.addSubview(self.replyTV)
@@ -133,6 +139,7 @@ class ViewController: UIViewController, UITextFieldDelegate{
         self.replyField.addTarget(self, action: #selector(textFieldDidBeginEditing(_:)), for: .editingChanged)
     }
     
+    
     func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
         self.replyField.resignFirstResponder()
     }
@@ -140,8 +147,10 @@ class ViewController: UIViewController, UITextFieldDelegate{
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if !textField.text!.isEmpty {
             self.reply.setMessage(message: textField.text)
+            self.reply.setTimeStamp(time: "1 min")
             self.replyInfos.append(self.reply)
             self.replyTV.reloadData()
+            
         }
 
         textField.resignFirstResponder()
@@ -151,8 +160,10 @@ class ViewController: UIViewController, UITextFieldDelegate{
         self.replyTVBottomConstraint2.isActive = false
         self.replyTVBottomConstraint1.isActive = true
         self.replyTV.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        self.replyTV.scrollToRow(at: IndexPath(row: self.replyInfos.count - 1, section: 0), at: .bottom, animated: true)
         return true
     }
+    
     
     
     
@@ -177,17 +188,17 @@ class ViewController: UIViewController, UITextFieldDelegate{
     }
     
     private func setTagTV() {
-        self.tagTV.widthAnchor.constraint(equalToConstant: TagCell.WIDTH).isActive = true
+        self.tagTV.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 5).isActive = true
+        self.tagTV.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -5).isActive = true
         self.tagTV.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -1 * self.keyboardHeight - 50).isActive = true
         if #available(iOS 11.0, *) {
-            self.tagTV.leadingAnchor.constraint(equalTo:
-                self.view.safeAreaLayoutGuide.leadingAnchor, constant: 10).isActive = true
+            self.tagTV.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 5).isActive = true
+            self.tagTV.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: self.keyboardHeight * -1).isActive = true
         } else {
             // Fallback on earlier versions
-            self.tagTV.leadingAnchor.constraint(equalTo:
-                self.view.leadingAnchor, constant: 10).isActive = true
+            self.tagTV.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 5).isActive = true
+            self.tagTV.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: self.keyboardHeight * -1).isActive = true
         }
-        self.tagTV.heightAnchor.constraint(equalToConstant: TagCell.HEIGHT * 5).isActive = true
         self.tagTV.isHidden = true
     }
     
@@ -243,11 +254,10 @@ class ViewController: UIViewController, UITextFieldDelegate{
         self.setTagTV()
         self.textFieldBottomConstraint2 = self.textFieldEmbeddedView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: self.keyboardHeight * -1)
         self.replyTVBottomConstraint2 = self.replyTV.bottomAnchor.constraint(equalTo: self.textFieldEmbeddedView.topAnchor, constant: -5)
-        self.replyTV.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: self.keyboardHeight, right: 0)
         self.textFieldBottomConstraint1.isActive = false
         self.textFieldBottomConstraint2.isActive = true
-        self.replyTVBottomConstraint1.isActive = false
-        self.replyTVBottomConstraint2.isActive = true
+        self.replyTV.setBottomInset(to: keyboardHeight)
+        
         self.view.setNeedsLayout()
     }
     
@@ -255,10 +265,11 @@ class ViewController: UIViewController, UITextFieldDelegate{
     @objc func keyboardWillHide(notification: NSNotification) {
         self.textFieldBottomConstraint2.isActive = false
         self.textFieldBottomConstraint1.isActive = true
-        self.replyTVBottomConstraint2.isActive = false
-        self.replyTVBottomConstraint1.isActive = true
+        self.replyTV.setBottomInset(to: 0.0)
+        
         self.replyField.text = ""
-        self.replyTV.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        self.replyTV.setBottomInset(to: 0.0)
+        print("keyboard hide")
     }
     
     @objc func replyPressed(_ sender: ReplyButton) {
@@ -266,6 +277,8 @@ class ViewController: UIViewController, UITextFieldDelegate{
             self.replyField.becomeFirstResponder()
             self.reply.setTaggedUser(taggedUser: [sender.username!])
             self.replyTV.scrollToRow(at: IndexPath(row: sender.rowNumber ?? 0, section: 0), at: .bottom, animated: true)
+            self.replyField.becomeFirstResponder()
+            self.view.setNeedsLayout()
             let text = "@"+sender.username! + " "
             let attributedText = NSMutableAttributedString(string: text)
             attributedText.addAttributes([NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 16)], range: NSRange(location: 0, length: text.count - 1))
@@ -275,12 +288,17 @@ class ViewController: UIViewController, UITextFieldDelegate{
         
     }
     
-    @objc func likePressed(_ sender: UIButton) {
+    @objc func likePressed(_ sender: ReplyButton) {
         if sender.currentImage == UIImage(imageLiteralResourceName: "Like") {
             sender.setImage(UIImage(imageLiteralResourceName: "Liked"), for: .normal)
+            self.replyInfos[sender.rowNumber!].likeCount! += 1
+            self.replyTV.reloadData()
         } else {
             sender.setImage(UIImage(imageLiteralResourceName: "Like"), for: .normal)
+            self.replyInfos[sender.rowNumber!].likeCount! -= 1
+            self.replyTV.reloadData()
         }
+        
     }
     
     //MARK:- Deinit
@@ -295,12 +313,7 @@ extension ViewController : UITableViewDelegate, UITableViewDataSource {
         if tableView == self.replyTV {
             return self.replyInfos.count
         } else {
-            if self.searchedFollowers.count >= 5 {
-                return 5
-            } else {
-                return self.searchedFollowers.count
-            }
-            
+             return self.searchedFollowers.count
         }
     }
     
@@ -317,6 +330,11 @@ extension ViewController : UITableViewDelegate, UITableViewDataSource {
             cell.profileImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.profileImageTouched(_:))))
             cell.replyInfo.message?.boldTaggedUsers(reply: cell.replyInfo, textView: cell.replyTextView)
             cell.timeStamp.text = cell.replyInfo.timeStamp
+            cell.likeButton.setRowNumber(number: indexPath.row)
+            cell.likeCount.text = String(cell.replyInfo.likeCount!)
+            if cell.replyInfo.userId == "qiuhao_zhang" {
+                cell.profileImage.image = UIImage(imageLiteralResourceName: "Profile6")
+            }
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: Constants.TAG_CELL, for: indexPath) as! TagCell
@@ -336,9 +354,8 @@ extension ViewController : UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if tableView == self.tagTV {
-            let index = self.replyField.text?.lastIndex(of: "@")!
+            let index = self.replyField.text?.lastIndex(of: "@")
             if index != nil {
-                let distance = self.replyField.text?.distance(from: self.replyField.text!.startIndex, to: index!)
                 let string = self.replyField.text?.substring(to: index!)
                 let stringToAdd = "@" + self.searchedFollowers[indexPath.row] + " "
                 var finalString = ""
@@ -364,11 +381,14 @@ extension ViewController : UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        if self.replyInfos[indexPath.row].userId == "Qiuhao Zhang" {
-            return true
-        } else {
-            return false
+        if tableView == self.replyTV {
+            if self.replyInfos[indexPath.row].userId == "Qiuhao Zhang" {
+                return true
+            } else {
+                return false
+            }
         }
+        return false
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
