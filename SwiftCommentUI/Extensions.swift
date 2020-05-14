@@ -36,16 +36,6 @@ extension UIView {
     
 }
 
-extension UITableView {
-
-    func setBottomInset(to value: CGFloat) {
-        let edgeInset = UIEdgeInsets(top: 0, left: 0, bottom: value, right: 0)
-
-        self.contentInset = edgeInset
-        self.scrollIndicatorInsets = edgeInset
-    }
-}
-
 extension String {
     func boldTaggedUsers(reply: Reply, textField: UITextField) {
         let text = textField.text
@@ -194,6 +184,13 @@ extension UITableView {
         
         self.allowsSelection = allowsSelection
         self.allowsMultipleSelection = false
+    }
+    
+    func setBottomInset(to value: CGFloat) {
+        let edgeInset = UIEdgeInsets(top: 0, left: 0, bottom: value, right: 0)
+
+        self.contentInset = edgeInset
+        self.scrollIndicatorInsets = edgeInset
     }
     
 }

@@ -13,18 +13,24 @@ class ViewController: UIViewController, UITextFieldDelegate{
     //MARK:- Test Data
     private let replies : [String] = ["I think this is a good idea", "@casey_k Check this out!", "@qiuhao_zhang @casey_k Wow this is so cool!", "This is gonna be exciting, looking forward to it!", "@lisaaaa Look at this!"]
     private let usernames : [String] = ["spontit_channel", "jacky12", "casey_k", "Kate046", "Mr_Nick"]
-    private let followerNames : [String] = ["casey_k", "samlee393", "bestzoey", "Kate046", "3_yvette", "Johnzzz"]
+    private let followerNames : [String] = ["casey_k", "samlee393", "bestjoe", "Kate046", "3_yvette", "Johnzzz"]
     
     private var replyInfos: [Reply] = []
     
     private var reply: Reply = Reply(userId: "qiuhao_zhang", itemId: "item")
     
-    private var searchedFollowers: [String] = ["my_friend", "test_name", "username", "ones", "helloo", "lololol"]
+    private var searchedFollowers: [String] = ["jacky12", "samlee393", "bestjoe", "Kate046", "3_yvette", "Mr_Nick"]
     private let profilePictures: [UIImage] = [UIImage(imageLiteralResourceName: "Profile1"),
                                               UIImage(imageLiteralResourceName: "Profile2"),
                                               UIImage(imageLiteralResourceName: "Profile3"),
                                               UIImage(imageLiteralResourceName: "Profile4"),
                                               UIImage(imageLiteralResourceName: "Profile5"),]
+    private let followerProfilePictures: [UIImage] = [UIImage(imageLiteralResourceName: "Profile1"),
+    UIImage(imageLiteralResourceName: "Profile8"),
+    UIImage(imageLiteralResourceName: "Profile7"),
+    UIImage(imageLiteralResourceName: "Profile4"),
+    UIImage(imageLiteralResourceName: "Profile9"),
+    UIImage(imageLiteralResourceName: "Profile5")]
     private let numberOfLikes = [10,4,5,2,1]
     
     //MARK:- Internal Globals
@@ -339,6 +345,7 @@ extension ViewController : UITableViewDelegate, UITableViewDataSource {
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: Constants.TAG_CELL, for: indexPath) as! TagCell
             cell.usernameLabel.text = self.searchedFollowers[indexPath.row]
+            cell.profileImageView.image = self.followerProfilePictures[indexPath.row]
             cell.selectionStyle = .none
             return cell
         }

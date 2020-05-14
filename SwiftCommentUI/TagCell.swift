@@ -17,9 +17,9 @@ class TagCell: UITableViewCell {
     static let HEIGHT: CGFloat = 50
     static let IMG_DIM: CGFloat = 45
     
-    // MARK:- Internal Globals
+    // MARK:- Globals
     
-    private var profileImageView : UIImageView = {
+    var profileImageView : UIImageView = {
         let imgVw = UIImageView()
         imgVw.translatesAutoresizingMaskIntoConstraints = false
         imgVw.backgroundColor = .gray
@@ -34,6 +34,7 @@ class TagCell: UITableViewCell {
         return lbl
     }()
     
+    //MARK:- Internal Globals
     private let overallStack : UIStackView = {
         let stack = UIStackView()
         stack.translatesAutoresizingMaskIntoConstraints = false
