@@ -13,21 +13,25 @@ class ViewController: UIViewController, UITextFieldDelegate{
     //MARK:- Test Data
     private let followerNames : [String] = ["casey_k", "samlee393", "bestjoe", "Kate046", "3_yvette", "Mr_Nick"]
     
-    private var replyInfos: [Reply] = [Reply(userId: "spontit_channel", itemId: "item", message: "I think this is a good idea", taggedUser: [], timeStamp: "1 Hour"),
-                                       Reply(userId: "jacky12", itemId: "item", message: "@casey_k Check this out!", taggedUser: ["casey_k"], timeStamp: "50 min"),
-                                       Reply(userId: "casey_k", itemId: "item", message: "@qiuhao_zhang @casey_k Wow this is so cool!", taggedUser: ["qiuhao_zhang", "casey_k"], timeStamp: "40 min"),
-                                       Reply(userId: "Kate046", itemId: "item", message: "This is gonna be exciting, looking forward to it!", taggedUser: [], timeStamp: "30 min"),
-                                       Reply(userId: "Mr_Nick", itemId: "item", message: "@lisaaaa Look at this!", taggedUser: ["lisaaaa"], timeStamp: "10 min")]
+    private var replyInfos: [Reply] = [
+        Reply(userId: "spontit_channel", itemId: "item", message: "I think this is a good idea", taggedUser: [], timeStamp: "1 Hour"),
+        Reply(userId: "jacky12", itemId: "item", message: "@casey_k Check this out!", taggedUser: ["casey_k"], timeStamp: "50 min"),
+        Reply(userId: "casey_k", itemId: "item", message: "@qiuhao_zhang @casey_k Wow this is so cool!", taggedUser: ["qiuhao_zhang", "casey_k"], timeStamp: "40 min"),
+        Reply(userId: "Kate046", itemId: "item", message: "This is gonna be exciting, looking forward to it!", taggedUser: [], timeStamp: "30 min"),
+        Reply(userId: "Mr_Nick", itemId: "item", message: "@lisaaaa Look at this!", taggedUser: ["lisaaaa"], timeStamp: "10 min")
+    ]
     
-    private let userProfilePictures : [String : UIImage] = ["spontit_channel" : UIImage(imageLiteralResourceName: "Profile1"),
-                                                            "jacky12" : UIImage(imageLiteralResourceName: "Profile2"),
-                                                            "casey_k" : UIImage(imageLiteralResourceName: "Profile3"),
-                                                            "Kate046" : UIImage(imageLiteralResourceName: "Profile4"),
-                                                            "Mr_Nick" : UIImage(imageLiteralResourceName: "Profile5"),
-                                                            "qiuhao_zhang" : UIImage(imageLiteralResourceName: "Profile6"),
-                                                            "bestjoe" : UIImage(imageLiteralResourceName: "Profile7"),
-                                                            "samlee393" : UIImage(imageLiteralResourceName: "Profile8"),
-                                                            "3_yvette" : UIImage(imageLiteralResourceName: "Profile9")]
+    private let userProfilePictures : [String : UIImage] = [
+        "spontit_channel" : UIImage(imageLiteralResourceName: "Profile1"),
+        "jacky12" : UIImage(imageLiteralResourceName: "Profile2"),
+        "casey_k" : UIImage(imageLiteralResourceName: "Profile3"),
+        "Kate046" : UIImage(imageLiteralResourceName: "Profile4"),
+        "Mr_Nick" : UIImage(imageLiteralResourceName: "Profile5"),
+        "qiuhao_zhang" : UIImage(imageLiteralResourceName: "Profile6"),
+        "bestjoe" : UIImage(imageLiteralResourceName: "Profile7"),
+        "samlee393" : UIImage(imageLiteralResourceName: "Profile8"),
+        "3_yvette" : UIImage(imageLiteralResourceName: "Profile9")
+    ]
     
     
     //MARK:- Internal Globals
