@@ -10,31 +10,32 @@ import UIKit
 
 class ViewController: UIViewController, UITextFieldDelegate{
     
-    //MARK:- Test Data
-    private let followerNames : [String] = ["casey_k", "samlee393", "bestjoe", "Kate046", "3_yvette", "Mr_Nick"]
+    // MARK:- Test Data
+    
+    private let followerNames : [String] = ["casey_k", "samlee393", "bestjoe", "kate046", "3_yvette", "mr_nick"]
     
     private var replyInfos: [Reply] = [
         Reply(userId: "spontit_channel", itemId: "item", message: "I think this is a good idea", taggedUser: [], timeStamp: "1 Hour"),
         Reply(userId: "jacky12", itemId: "item", message: "@casey_k Check this out!", taggedUser: ["casey_k"], timeStamp: "50 min"),
         Reply(userId: "casey_k", itemId: "item", message: "@qiuhao_zhang @casey_k Wow this is so cool!", taggedUser: ["qiuhao_zhang", "casey_k"], timeStamp: "40 min"),
-        Reply(userId: "Kate046", itemId: "item", message: "This is gonna be exciting, looking forward to it!", taggedUser: [], timeStamp: "30 min"),
-        Reply(userId: "Mr_Nick", itemId: "item", message: "@lisaaaa Look at this!", taggedUser: ["lisaaaa"], timeStamp: "10 min")
+        Reply(userId: "kate046", itemId: "item", message: "This is gonna be exciting, looking forward to it!", taggedUser: [], timeStamp: "30 min"),
+        Reply(userId: "mr_nick", itemId: "item", message: "@lisaaaa Look at this!", taggedUser: ["lisaaaa"], timeStamp: "10 min")
     ]
     
     private let userProfilePictures : [String : UIImage] = [
-        "spontit_channel" : UIImage(imageLiteralResourceName: "Profile1"),
-        "jacky12" : UIImage(imageLiteralResourceName: "Profile2"),
-        "casey_k" : UIImage(imageLiteralResourceName: "Profile3"),
-        "Kate046" : UIImage(imageLiteralResourceName: "Profile4"),
-        "Mr_Nick" : UIImage(imageLiteralResourceName: "Profile5"),
-        "qiuhao_zhang" : UIImage(imageLiteralResourceName: "Profile6"),
-        "bestjoe" : UIImage(imageLiteralResourceName: "Profile7"),
-        "samlee393" : UIImage(imageLiteralResourceName: "Profile8"),
-        "3_yvette" : UIImage(imageLiteralResourceName: "Profile9")
+        "spontit_channel" : #imageLiteral(resourceName: "Profile1"),
+        "jacky12" : #imageLiteral(resourceName: "Profile2"),
+        "casey_k" : #imageLiteral(resourceName: "Profile3"),
+        "kate046" : #imageLiteral(resourceName: "Profile4"),
+        "mr_nick" : #imageLiteral(resourceName: "Profile5"),
+        "qiuhao_zhang" : #imageLiteral(resourceName: "Profile6"),
+        "bestjoe" : #imageLiteral(resourceName: "profile7"),
+        "samlee393" : #imageLiteral(resourceName: "Profile8"),
+        "3_yvette" : #imageLiteral(resourceName: "Profile9")
     ]
     
+    // MARK:- Internal Globals
     
-    //MARK:- Internal Globals
     private var keyboardHeight : CGFloat = 0
     private var keyboardWidth : CGFloat = 0
     private var replyTV: ReplyTableView = ReplyTableView(frame: .zero)
@@ -47,8 +48,8 @@ class ViewController: UIViewController, UITextFieldDelegate{
     private var replyTVBottomConstraint1 : NSLayoutConstraint!
     private var replyTVBottomConstraint2 : NSLayoutConstraint!
     
-    private var replyField : UITextField = {
-        let field = UITextField()
+    private var replyField : TextField = {
+        let field = TextField()
         field.translatesAutoresizingMaskIntoConstraints = false
         field.heightAnchor.constraint(equalToConstant: 50).isActive = true
         field.backgroundColor = .white
@@ -56,7 +57,8 @@ class ViewController: UIViewController, UITextFieldDelegate{
         field.font = UIFont.systemFont(ofSize: 16)
         field.curveView()
         field.giveBorder(color: .lightGray)
-        field.placeholder = "Add your comment here"
+        field.placeholder = "Add your comment here."
+//        field.textContainerInset = UIEdgeInsets.init(top: 2.1, left: 1.0, bottom: 1.0, right: 1.0)
         return field
     }()
     
@@ -67,7 +69,8 @@ class ViewController: UIViewController, UITextFieldDelegate{
         return view
     }()
 
-    //MARK:- Overriden Functions
+    // MARK:- Overriden Functions
+    
     override func viewDidLoad() {
         self.navigationController?.setNavigationBarHidden(false, animated: false)
         super.viewDidLoad()
@@ -82,7 +85,7 @@ class ViewController: UIViewController, UITextFieldDelegate{
         self.replyField.resignFirstResponder()
     }
     
-    //MARK:- Helper Functions
+    // MARK:- Helper Functions
     
     private func setUp() {
         self.view.backgroundColor = .white
@@ -151,7 +154,6 @@ class ViewController: UIViewController, UITextFieldDelegate{
             self.reply.setTimeStamp(time: "1 min")
             self.replyInfos.append(self.reply)
             self.replyTV.reloadData()
-            
         }
 
         textField.resignFirstResponder()
@@ -164,9 +166,6 @@ class ViewController: UIViewController, UITextFieldDelegate{
         self.replyTV.scrollToRow(at: IndexPath(row: self.replyInfos.count - 1, section: 0), at: .bottom, animated: true)
         return true
     }
-    
-    
-    
     
     private func updateSearchResult(forQueryText text : String) {
         var results : [String] = []
@@ -204,7 +203,8 @@ class ViewController: UIViewController, UITextFieldDelegate{
     }
     
     
-    //MARK:- @Objc exposed functions
+    // MARK:- @Obj-C Exposed Functions
+    
     @objc func profileImageTouched(_ recognizer: UITapGestureRecognizer) {
         print ("touched")
     }
@@ -302,7 +302,8 @@ class ViewController: UIViewController, UITextFieldDelegate{
         
     }
     
-    //MARK:- Deinit
+    // MARK:- Deinit
+    
     deinit {
         
     }

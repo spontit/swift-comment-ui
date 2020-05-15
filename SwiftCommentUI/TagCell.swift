@@ -34,7 +34,7 @@ class TagCell: UITableViewCell {
         return lbl
     }()
     
-    //MARK:- Internal Globals
+    // MARK:- Internal Globals
     private let overallStack : UIStackView = {
         let stack = UIStackView()
         stack.translatesAutoresizingMaskIntoConstraints = false
