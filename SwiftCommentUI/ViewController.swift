@@ -11,27 +11,24 @@ import UIKit
 class ViewController: UIViewController, UITextFieldDelegate{
     
     //MARK:- Test Data
-    private let replies : [String] = ["I think this is a good idea", "@casey_k Check this out!", "@qiuhao_zhang @casey_k Wow this is so cool!", "This is gonna be exciting, looking forward to it!", "@lisaaaa Look at this!"]
-    private let usernames : [String] = ["spontit_channel", "jacky12", "casey_k", "Kate046", "Mr_Nick"]
-    private let followerNames : [String] = ["casey_k", "samlee393", "bestjoe", "Kate046", "3_yvette", "Johnzzz"]
+    private let followerNames : [String] = ["casey_k", "samlee393", "bestjoe", "Kate046", "3_yvette", "Mr_Nick"]
     
-    private var replyInfos: [Reply] = []
+    private var replyInfos: [Reply] = [Reply(userId: "spontit_channel", itemId: "item", message: "I think this is a good idea", taggedUser: [], timeStamp: "1 Hour"),
+                                       Reply(userId: "jacky12", itemId: "item", message: "@casey_k Check this out!", taggedUser: ["casey_k"], timeStamp: "50 min"),
+                                       Reply(userId: "casey_k", itemId: "item", message: "@qiuhao_zhang @casey_k Wow this is so cool!", taggedUser: ["qiuhao_zhang", "casey_k"], timeStamp: "40 min"),
+                                       Reply(userId: "Kate046", itemId: "item", message: "This is gonna be exciting, looking forward to it!", taggedUser: [], timeStamp: "30 min"),
+                                       Reply(userId: "Mr_Nick", itemId: "item", message: "@lisaaaa Look at this!", taggedUser: ["lisaaaa"], timeStamp: "10 min")]
     
-    private var reply: Reply = Reply(userId: "qiuhao_zhang", itemId: "item")
+    private let userProfilePictures : [String : UIImage] = ["spontit_channel" : UIImage(imageLiteralResourceName: "Profile1"),
+                                                            "jacky12" : UIImage(imageLiteralResourceName: "Profile2"),
+                                                            "casey_k" : UIImage(imageLiteralResourceName: "Profile3"),
+                                                            "Kate046" : UIImage(imageLiteralResourceName: "Profile4"),
+                                                            "Mr_Nick" : UIImage(imageLiteralResourceName: "Profile5"),
+                                                            "qiuhao_zhang" : UIImage(imageLiteralResourceName: "Profile6"),
+                                                            "bestjoe" : UIImage(imageLiteralResourceName: "Profile7"),
+                                                            "samlee393" : UIImage(imageLiteralResourceName: "Profile8"),
+                                                            "3_yvette" : UIImage(imageLiteralResourceName: "Profile9")]
     
-    private var searchedFollowers: [String] = ["jacky12", "samlee393", "bestjoe", "Kate046", "3_yvette", "Mr_Nick"]
-    private let profilePictures: [UIImage] = [UIImage(imageLiteralResourceName: "Profile1"),
-                                              UIImage(imageLiteralResourceName: "Profile2"),
-                                              UIImage(imageLiteralResourceName: "Profile3"),
-                                              UIImage(imageLiteralResourceName: "Profile4"),
-                                              UIImage(imageLiteralResourceName: "Profile5"),]
-    private let followerProfilePictures: [UIImage] = [UIImage(imageLiteralResourceName: "Profile1"),
-    UIImage(imageLiteralResourceName: "Profile8"),
-    UIImage(imageLiteralResourceName: "Profile7"),
-    UIImage(imageLiteralResourceName: "Profile4"),
-    UIImage(imageLiteralResourceName: "Profile9"),
-    UIImage(imageLiteralResourceName: "Profile5")]
-    private let numberOfLikes = [10,4,5,2,1]
     
     //MARK:- Internal Globals
     private var keyboardHeight : CGFloat = 0
@@ -39,6 +36,8 @@ class ViewController: UIViewController, UITextFieldDelegate{
     private var replyTV: ReplyTableView = ReplyTableView(frame: .zero)
     private var tagTV: TagTableView = TagTableView(frame: .zero)
     private var isSearching = false
+    private var reply: Reply = Reply(userId: "qiuhao_zhang", itemId: "item")
+    private var searchedFollowers : [String] = []
     private var textFieldBottomConstraint1 : NSLayoutConstraint!
     private var textFieldBottomConstraint2 : NSLayoutConstraint!
     private var replyTVBottomConstraint1 : NSLayoutConstraint!
@@ -88,14 +87,6 @@ class ViewController: UIViewController, UITextFieldDelegate{
         self.replyField.delegate = self
         self.tagTV.delegate = self
         self.tagTV.dataSource = self
-        self.replyInfos.append(Reply(userId: usernames[0], itemId: "item", message: replies[0], taggedUser: [], timeStamp: "1 Hour"))
-        self.replyInfos.append(Reply(userId: usernames[1], itemId: "item", message: replies[1], taggedUser: ["casey_k"], timeStamp: "50 min"))
-        self.replyInfos.append(Reply(userId: usernames[2], itemId: "item", message: replies[2], taggedUser: ["qiuhao_zhang", "casey_k"], timeStamp: "40 min"))
-        self.replyInfos.append(Reply(userId: usernames[3], itemId: "item", message: replies[3], taggedUser: [], timeStamp: "30 min"))
-        self.replyInfos.append(Reply(userId: usernames[4], itemId: "item", message: replies[4], taggedUser: ["lisaaaa"], timeStamp: "10 min"))
-        for i in 0..<self.replyInfos.count {
-            self.replyInfos[i].likeCount = self.numberOfLikes[i]
-        }
         
         self.replyTV.reloadData()
         self.view.addSubview(self.replyTV)
@@ -182,7 +173,7 @@ class ViewController: UIViewController, UITextFieldDelegate{
             return
         }
         for name in self.followerNames {
-            if name.contains(text) {
+            if name.lowercased().contains(text) {
                 results.append(name)
             }
         }
@@ -198,11 +189,11 @@ class ViewController: UIViewController, UITextFieldDelegate{
         self.tagTV.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -5).isActive = true
         self.tagTV.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -1 * self.keyboardHeight - 50).isActive = true
         if #available(iOS 11.0, *) {
-            self.tagTV.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 5).isActive = true
+            self.tagTV.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 0).isActive = true
             self.tagTV.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: self.keyboardHeight * -1).isActive = true
         } else {
             // Fallback on earlier versions
-            self.tagTV.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 5).isActive = true
+            self.tagTV.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 0).isActive = true
             self.tagTV.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: self.keyboardHeight * -1).isActive = true
         }
         self.tagTV.isHidden = true
@@ -332,20 +323,17 @@ extension ViewController : UITableViewDelegate, UITableViewDataSource {
             cell.replyButton.addTarget(self, action: #selector(replyPressed(_:)), for: .touchUpInside)
             cell.likeButton.addTarget(self, action: #selector(likePressed(_:)), for: .touchUpInside)
             cell.replyInfo.message?.boldTaggedUsers(reply: cell.replyInfo, textView: cell.replyTextView)
-            cell.profileImage.image = self.profilePictures[indexPath.row % 5]
+            cell.profileImage.image = self.userProfilePictures[cell.replyInfo.userId!]
             cell.profileImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.profileImageTouched(_:))))
             cell.replyInfo.message?.boldTaggedUsers(reply: cell.replyInfo, textView: cell.replyTextView)
             cell.timeStamp.text = cell.replyInfo.timeStamp
             cell.likeButton.setRowNumber(number: indexPath.row)
             cell.likeCount.text = String(cell.replyInfo.likeCount!)
-            if cell.replyInfo.userId == "qiuhao_zhang" {
-                cell.profileImage.image = UIImage(imageLiteralResourceName: "Profile6")
-            }
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: Constants.TAG_CELL, for: indexPath) as! TagCell
             cell.usernameLabel.text = self.searchedFollowers[indexPath.row]
-            cell.profileImageView.image = self.followerProfilePictures[indexPath.row]
+            cell.profileImageView.image = self.userProfilePictures[self.searchedFollowers[indexPath.row]]
             cell.selectionStyle = .none
             return cell
         }
@@ -389,7 +377,7 @@ extension ViewController : UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         if tableView == self.replyTV {
-            if self.replyInfos[indexPath.row].userId == "Qiuhao Zhang" {
+            if self.replyInfos[indexPath.row].userId == "qiuhao_zhang" {
                 return true
             } else {
                 return false
@@ -399,7 +387,7 @@ extension ViewController : UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if self.replyInfos[indexPath.row].userId == "Qiuhao Zhang" {
+        if self.replyInfos[indexPath.row].userId == "qiuhao_zhang" {
             if editingStyle == .delete {
                 self.replyInfos.remove(at: indexPath.row)
                 tableView.deleteRows(at: [indexPath], with: .fade)
