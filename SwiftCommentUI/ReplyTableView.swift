@@ -32,5 +32,6 @@ class ReplyTableView : UITableView {
     private func setUp() {
         self.register(ReplyCell.self, forCellReuseIdentifier: Constants.REPLY_CELL)
         self.basicSetUp(rowHeight: nil, allowsSelection: false)
+        self.keyboardDismissMode = .interactive
     }
 }

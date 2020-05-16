@@ -99,6 +99,7 @@ class ReplyCell: UITableViewCell {
         let btn = ReplyButton()
         btn.translatesAutoresizingMaskIntoConstraints = false
         btn.setImage(UIImage(imageLiteralResourceName: "Like"), for: .normal)
+        btn.setImage(UIImage(imageLiteralResourceName: "Liked"), for: .selected)
         btn.widthAnchor.constraint(equalToConstant: 30).isActive = true
         btn.heightAnchor.constraint(equalToConstant: 30).isActive = true
         return btn

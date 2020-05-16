@@ -35,21 +35,18 @@ class ViewController: UIViewController, UITextFieldDelegate{
     ]
     
     // MARK:- Internal Globals
-    
     private var keyboardHeight : CGFloat = 0
     private var keyboardWidth : CGFloat = 0
     private var replyTV: ReplyTableView = ReplyTableView(frame: .zero)
     private var tagTV: TagTableView = TagTableView(frame: .zero)
     private var isSearching = false
-    private var reply: Reply = Reply(userId: "qiuhao_zhang", itemId: "item")
     private var searchedFollowers : [String] = []
     private var textFieldBottomConstraint1 : NSLayoutConstraint!
     private var textFieldBottomConstraint2 : NSLayoutConstraint!
     private var replyTVBottomConstraint1 : NSLayoutConstraint!
     private var replyTVBottomConstraint2 : NSLayoutConstraint!
-    
-    private var replyField : TextField = {
-        let field = TextField()
+    private var replyField : UITextField = {
+        let field = UITextField()
         field.translatesAutoresizingMaskIntoConstraints = false
         field.heightAnchor.constraint(equalToConstant: 50).isActive = true
         field.backgroundColor = .white
@@ -68,12 +65,16 @@ class ViewController: UIViewController, UITextFieldDelegate{
         view.backgroundColor = .white
         return view
     }()
+    
+    // MARK:- TODO: Get-comments server integration here.
+    
+    private var reply: Reply = Reply(userId: "qiuhao_zhang", itemId: "item")
 
     // MARK:- Overriden Functions
     
     override func viewDidLoad() {
-        self.navigationController?.setNavigationBarHidden(false, animated: false)
         super.viewDidLoad()
+        self.navigationController?.setNavigationBarHidden(false, animated: false)
         self.setUp()
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
@@ -94,8 +95,6 @@ class ViewController: UIViewController, UITextFieldDelegate{
         self.replyField.delegate = self
         self.tagTV.delegate = self
         self.tagTV.dataSource = self
-        
-        self.replyTV.reloadData()
         self.view.addSubview(self.replyTV)
         if #available(iOS 11.0, *) {
             self.replyTV.leadingAnchor.constraint(equalTo:
@@ -149,6 +148,8 @@ class ViewController: UIViewController, UITextFieldDelegate{
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        // MARK:- TODO: Add-comment server integration here.
+        
         if !textField.text!.isEmpty {
             self.reply.setMessage(message: textField.text)
             self.reply.setTimeStamp(time: "1 min")
@@ -206,6 +207,7 @@ class ViewController: UIViewController, UITextFieldDelegate{
     // MARK:- @Obj-C Exposed Functions
     
     @objc func profileImageTouched(_ recognizer: UITapGestureRecognizer) {
+        // MARK:- TODO: View profile from comment here.
         print ("touched")
     }
     
@@ -229,6 +231,7 @@ class ViewController: UIViewController, UITextFieldDelegate{
     }
     
     @objc func textFieldDidEndEditing(_ textField: UITextField) {
+        // MARK:- TODO: Get-comments server integration here.
         let text = textField.text
         if text != nil {
             let textArray = text!.split(separator: " ")
@@ -290,24 +293,28 @@ class ViewController: UIViewController, UITextFieldDelegate{
     }
     
     @objc func likePressed(_ sender: ReplyButton) {
+        // MARK:- TODO: Add-comment-like server integration here.
+        
+        self.replyInfos[sender.rowNumber!].isLiked!.toggle()
         if sender.currentImage == UIImage(imageLiteralResourceName: "Like") {
             sender.setImage(UIImage(imageLiteralResourceName: "Liked"), for: .normal)
             self.replyInfos[sender.rowNumber!].likeCount! += 1
-            self.replyTV.reloadData()
+            let cell = self.replyTV.cellForRow(at: IndexPath(row: sender.rowNumber!, section: 0)) as! ReplyCell
+            cell.likeCount.text = String(self.replyInfos[sender.rowNumber!].likeCount!)
         } else {
             sender.setImage(UIImage(imageLiteralResourceName: "Like"), for: .normal)
             self.replyInfos[sender.rowNumber!].likeCount! -= 1
-            self.replyTV.reloadData()
+            let cell = self.replyTV.cellForRow(at: IndexPath(row: sender.rowNumber!, section: 0)) as! ReplyCell
+            cell.likeCount.text = String(self.replyInfos[sender.rowNumber!].likeCount!)
         }
-        
+        self.replyTV.reloadData()
     }
     
     // MARK:- Deinit
-    
     deinit {
-        
+        // MARK:- TODO: Remove-comment server integration here.
+        // MARK:- TODO: Remove-comment-like server integration here.
     }
-
 }
 
 extension ViewController : UITableViewDelegate, UITableViewDataSource {
@@ -321,6 +328,7 @@ extension ViewController : UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if tableView == self.replyTV {
+            // MARK:- TODO: Add-comment-like server integration here.
             let cell = tableView.dequeueReusableCell(withIdentifier: Constants.REPLY_CELL, for: indexPath) as! ReplyCell
             cell.replyInfo = self.replyInfos[indexPath.row]
             cell.replyButton.username = cell.replyInfo.userId ?? " "
@@ -334,6 +342,11 @@ extension ViewController : UITableViewDelegate, UITableViewDataSource {
             cell.timeStamp.text = cell.replyInfo.timeStamp
             cell.likeButton.setRowNumber(number: indexPath.row)
             cell.likeCount.text = String(cell.replyInfo.likeCount!)
+            if cell.replyInfo.isLiked == true {
+                cell.likeButton.setImage(UIImage(imageLiteralResourceName: "Liked"), for: .normal)
+            } else {
+                cell.likeButton.setImage(UIImage(imageLiteralResourceName: "Like"), for: .normal)
+            }
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: Constants.TAG_CELL, for: indexPath) as! TagCell
@@ -382,6 +395,7 @@ extension ViewController : UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         if tableView == self.replyTV {
+            // MARK:- TODO: Get-comments server integration here.
             if self.replyInfos[indexPath.row].userId == "qiuhao_zhang" {
                 return true
             } else {
@@ -392,6 +406,7 @@ extension ViewController : UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        // MARK:- TODO: Get-comments server integration here.
         if self.replyInfos[indexPath.row].userId == "qiuhao_zhang" {
             if editingStyle == .delete {
                 self.replyInfos.remove(at: indexPath.row)
