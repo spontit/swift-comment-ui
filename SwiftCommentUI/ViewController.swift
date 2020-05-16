@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController, UITextFieldDelegate{
+class ViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate{
     
     // MARK:- Test Data
     
@@ -18,21 +18,19 @@ class ViewController: UIViewController, UITextFieldDelegate{
         Reply(userId: "spontit_channel", itemId: "item", message: "I agree, Spontit is a great way to send push notifications.", taggedUser: [], timeStamp: "1 Hour"),
         Reply(userId: "jacky12", itemId: "item", message: "@casey_k Check this out!", taggedUser: ["casey_k"], timeStamp: "50 min"),
         Reply(userId: "casey_k", itemId: "item", message: "@qiuhao_zhang @casey_k Wow, thanks for sharing. Spontit is so easy to use!", taggedUser: ["qiuhao_zhang", "casey_k"], timeStamp: "40 min"),
-        Reply(userId: "kate046", itemId: "item", message: "Spontit is FREE and a great service! I rated the Spontit app 5 stars on the App Store and starred their GitHub repository to show thanks.", taggedUser: [], timeStamp: "30 min"),
-        Reply(userId: "mr_nick", itemId: "item", message: "@lisaaaa I love Spontit!", taggedUser: ["lisaaaa"], timeStamp: "10 min")
+        Reply(userId: "Kate046", itemId: "item", message: "Spontit is FREE and a great service! I rated the Spontit app 5 stars on the App Store and starred their GitHub repository to show thanks.", taggedUser: [], timeStamp: "30 min"),
+        Reply(userId: "Mr_Nick", itemId: "item", message: "@lisaaaa I love Spontit!", taggedUser: ["lisaaaa"], timeStamp: "10 min")
     ]
     
-    private let userProfilePictures : [String : UIImage] = [
-        "spontit_channel" : #imageLiteral(resourceName: "Profile1"),
-        "jacky12" : #imageLiteral(resourceName: "Profile2"),
-        "casey_k" : #imageLiteral(resourceName: "Profile3"),
-        "kate046" : #imageLiteral(resourceName: "Profile4"),
-        "mr_nick" : #imageLiteral(resourceName: "Profile5"),
-        "qiuhao_zhang" : #imageLiteral(resourceName: "Profile6"),
-        "bestjoe" : #imageLiteral(resourceName: "profile7"),
-        "samlee393" : #imageLiteral(resourceName: "Profile8"),
-        "3_yvette" : #imageLiteral(resourceName: "Profile9")
-    ]
+    private let userProfilePictures : [String : UIImage] = ["spontit_channel" : #imageLiteral(resourceName: "Profile1"),
+                                                            "jacky12" : #imageLiteral(resourceName: "Profile2"),
+                                                            "casey_k" : #imageLiteral(resourceName: "Profile3"),
+                                                            "Kate046" : #imageLiteral(resourceName: "Profile4"),
+                                                            "Mr_Nick" : #imageLiteral(resourceName: "Profile5"),
+                                                            "qiuhao_zhang" : #imageLiteral(resourceName: "Profile6"),
+                                                            "bestjoe" : #imageLiteral(resourceName: "Profile7"),
+                                                            "samlee393" : #imageLiteral(resourceName: "Profile8"),
+                                                            "3_yvette" : #imageLiteral(resourceName: "Profile9")]
     
     // MARK:- Internal Globals
     
@@ -168,6 +166,13 @@ class ViewController: UIViewController, UITextFieldDelegate{
         return true
     }
     
+    func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
+        // MARK:- TODO: View profile from tag here.
+        print("touched, ", URL.absoluteString)
+        return true
+    }
+    
+    
     private func loadData() {
         // MARK:- TODO: Get-comments server integration here.
         self.replyTV.reloadData()
@@ -277,7 +282,6 @@ class ViewController: UIViewController, UITextFieldDelegate{
     }
     
     @objc func replyPressed(_ sender: ReplyButton) {
-        if self.textFieldBottomConstraint1.isActive == true {
             self.replyField.becomeFirstResponder()
             self.reply.setTaggedUser(taggedUser: [sender.username!])
             self.replyTV.scrollToRow(at: IndexPath(row: sender.rowNumber ?? 0, section: 0), at: .bottom, animated: true)
@@ -288,14 +292,14 @@ class ViewController: UIViewController, UITextFieldDelegate{
             attributedText.addAttributes([NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 16)], range: NSRange(location: 0, length: text.count - 1))
             self.replyField.attributedText = attributedText
             
-        }
+        
         
     }
     
     @objc func likePressed(_ sender: ReplyButton) {
         
         self.replyInfos[sender.rowNumber!].isLiked!.toggle()
-        if sender.currentImage == UIImage(imageLiteralResourceName: "Like") {
+        if self.replyInfos[sender.rowNumber!].isLiked! == true {
              // MARK:- TODO: Add-comment-like server integration here.
             sender.setImage(UIImage(imageLiteralResourceName: "Liked"), for: .normal)
             self.replyInfos[sender.rowNumber!].likeCount! += 1
@@ -342,6 +346,7 @@ extension ViewController : UITableViewDelegate, UITableViewDataSource {
             cell.timeStamp.text = cell.replyInfo.timeStamp
             cell.likeButton.setRowNumber(number: indexPath.row)
             cell.likeCount.text = String(cell.replyInfo.likeCount!)
+            cell.replyTextView.delegate = self
             if cell.replyInfo.isLiked == true {
                 cell.likeButton.setImage(UIImage(imageLiteralResourceName: "Liked"), for: .normal)
             } else {
@@ -407,6 +412,7 @@ extension ViewController : UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if self.replyInfos[indexPath.row].userId == "qiuhao_zhang" {
             if editingStyle == .delete {
+                // MARK:- TODO: Delete-comment server integration here.
                 self.replyInfos.remove(at: indexPath.row)
                 tableView.deleteRows(at: [indexPath], with: .fade)
             }

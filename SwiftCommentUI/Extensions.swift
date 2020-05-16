@@ -89,7 +89,10 @@ extension String {
             if word.first == "@" {
                 let rangeToAdd = String(word)
                 if let range = text?.range(of: rangeToAdd) {
+                    
+                    attributedText.addAttribute(.link, value: rangeToAdd, range: NSRange(range, in: text!))
                     attributedText.addAttributes([NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 16)], range: NSRange(range, in: text!))
+                    textView.linkTextAttributes = [ .foregroundColor: UIColor.black ]
                     textView.attributedText = attributedText
                 }
             }
