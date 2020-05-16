@@ -17,7 +17,11 @@ class ViewController: UIViewController, UITextFieldDelegate{
                                        Reply(userId: "jacky12", itemId: "item", message: "@casey_k Check this out!", taggedUser: ["casey_k"], timeStamp: "50 min"),
                                        Reply(userId: "casey_k", itemId: "item", message: "@qiuhao_zhang @casey_k Wow this is so cool!", taggedUser: ["qiuhao_zhang", "casey_k"], timeStamp: "40 min"),
                                        Reply(userId: "Kate046", itemId: "item", message: "This is gonna be exciting, looking forward to it!", taggedUser: [], timeStamp: "30 min"),
-                                       Reply(userId: "Mr_Nick", itemId: "item", message: "@lisaaaa Look at this!", taggedUser: ["lisaaaa"], timeStamp: "10 min")]
+                                       Reply(userId: "Mr_Nick", itemId: "item", message: "@lisaaaa Look at this!", taggedUser: ["lisaaaa"], timeStamp: "10 min"),
+                                       Reply(userId: "Mr_Nick", itemId: "item", message: "@lisaaaa Look at this!", taggedUser: ["lisaaaa"], timeStamp: "10 min"),
+    Reply(userId: "spontit_channel", itemId: "item", message: "Welcome Everyone!", taggedUser: [], timeStamp: "5 min"),
+    Reply(userId: "qiuhao_zhang", itemId: "item", message: "lol sounds good!", taggedUser: [], timeStamp: "3 min"),
+    ]
     
     private let userProfilePictures : [String : UIImage] = ["spontit_channel" : UIImage(imageLiteralResourceName: "Profile1"),
                                                             "jacky12" : UIImage(imageLiteralResourceName: "Profile2"),
@@ -87,8 +91,6 @@ class ViewController: UIViewController, UITextFieldDelegate{
         self.replyField.delegate = self
         self.tagTV.delegate = self
         self.tagTV.dataSource = self
-        
-        self.replyTV.reloadData()
         self.view.addSubview(self.replyTV)
         if #available(iOS 11.0, *) {
             self.replyTV.leadingAnchor.constraint(equalTo:
@@ -286,16 +288,19 @@ class ViewController: UIViewController, UITextFieldDelegate{
     }
     
     @objc func likePressed(_ sender: ReplyButton) {
+        self.replyInfos[sender.rowNumber!].isLiked!.toggle()
         if sender.currentImage == UIImage(imageLiteralResourceName: "Like") {
             sender.setImage(UIImage(imageLiteralResourceName: "Liked"), for: .normal)
             self.replyInfos[sender.rowNumber!].likeCount! += 1
-            self.replyTV.reloadData()
+            let cell = self.replyTV.cellForRow(at: IndexPath(row: sender.rowNumber!, section: 0)) as! ReplyCell
+            cell.likeCount.text = String(self.replyInfos[sender.rowNumber!].likeCount!)
         } else {
             sender.setImage(UIImage(imageLiteralResourceName: "Like"), for: .normal)
             self.replyInfos[sender.rowNumber!].likeCount! -= 1
-            self.replyTV.reloadData()
+            let cell = self.replyTV.cellForRow(at: IndexPath(row: sender.rowNumber!, section: 0)) as! ReplyCell
+            cell.likeCount.text = String(self.replyInfos[sender.rowNumber!].likeCount!)
         }
-        
+        self.replyTV.reloadData()
     }
     
     //MARK:- Deinit
@@ -329,6 +334,11 @@ extension ViewController : UITableViewDelegate, UITableViewDataSource {
             cell.timeStamp.text = cell.replyInfo.timeStamp
             cell.likeButton.setRowNumber(number: indexPath.row)
             cell.likeCount.text = String(cell.replyInfo.likeCount!)
+            if cell.replyInfo.isLiked == true {
+                cell.likeButton.setImage(UIImage(imageLiteralResourceName: "Liked"), for: .normal)
+            } else {
+                cell.likeButton.setImage(UIImage(imageLiteralResourceName: "Like"), for: .normal)
+            }
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: Constants.TAG_CELL, for: indexPath) as! TagCell
