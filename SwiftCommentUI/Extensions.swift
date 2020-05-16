@@ -8,27 +8,28 @@
 
 import UIKit
 
+// https://stackoverflow.com/questions/2694411/text-inset-for-uitextfield
 @IBDesignable
 class TextField: UITextField {
     @IBInspectable var insetX: CGFloat = 6 {
-       didSet {
-         layoutIfNeeded()
-       }
+        didSet {
+            self.layoutIfNeeded()
+        }
     }
     @IBInspectable var insetY: CGFloat = 6 {
-       didSet {
-         layoutIfNeeded()
-       }
+        didSet {
+            self.layoutIfNeeded()
+        }
     }
 
     // placeholder position
     override func textRect(forBounds bounds: CGRect) -> CGRect {
-        return bounds.insetBy(dx: insetX , dy: insetY)
+        return bounds.insetBy(dx: self.insetX , dy: self.insetY)
     }
 
     // text position
     override func editingRect(forBounds bounds: CGRect) -> CGRect {
-        return bounds.insetBy(dx: insetX , dy: insetY)
+        return bounds.insetBy(dx: self.insetX , dy: self.insetY)
     }
 }
 

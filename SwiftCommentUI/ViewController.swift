@@ -15,11 +15,11 @@ class ViewController: UIViewController, UITextFieldDelegate{
     private let followerNames : [String] = ["casey_k", "samlee393", "bestjoe", "kate046", "3_yvette", "mr_nick"]
     
     private var replyInfos: [Reply] = [
-        Reply(userId: "spontit_channel", itemId: "item", message: "I think this is a good idea", taggedUser: [], timeStamp: "1 Hour"),
+        Reply(userId: "spontit_channel", itemId: "item", message: "I agree, Spontit is a great way to send push notifications.", taggedUser: [], timeStamp: "1 Hour"),
         Reply(userId: "jacky12", itemId: "item", message: "@casey_k Check this out!", taggedUser: ["casey_k"], timeStamp: "50 min"),
-        Reply(userId: "casey_k", itemId: "item", message: "@qiuhao_zhang @casey_k Wow this is so cool!", taggedUser: ["qiuhao_zhang", "casey_k"], timeStamp: "40 min"),
-        Reply(userId: "kate046", itemId: "item", message: "This is gonna be exciting, looking forward to it!", taggedUser: [], timeStamp: "30 min"),
-        Reply(userId: "mr_nick", itemId: "item", message: "@lisaaaa Look at this!", taggedUser: ["lisaaaa"], timeStamp: "10 min")
+        Reply(userId: "casey_k", itemId: "item", message: "@qiuhao_zhang @casey_k Wow, thanks for sharing. Spontit is so easy to use!", taggedUser: ["qiuhao_zhang", "casey_k"], timeStamp: "40 min"),
+        Reply(userId: "kate046", itemId: "item", message: "Spontit is FREE and a great service! I rated the Spontit app 5 stars on the App Store and starred their GitHub repository to show thanks.", taggedUser: [], timeStamp: "30 min"),
+        Reply(userId: "mr_nick", itemId: "item", message: "@lisaaaa I love Spontit!", taggedUser: ["lisaaaa"], timeStamp: "10 min")
     ]
     
     private let userProfilePictures : [String : UIImage] = [
@@ -46,7 +46,7 @@ class ViewController: UIViewController, UITextFieldDelegate{
     private var replyTVBottomConstraint1 : NSLayoutConstraint!
     private var replyTVBottomConstraint2 : NSLayoutConstraint!
     private var replyField : UITextField = {
-        let field = UITextField()
+        let field = TextField()
         field.translatesAutoresizingMaskIntoConstraints = false
         field.heightAnchor.constraint(equalToConstant: 50).isActive = true
         field.backgroundColor = .white
@@ -55,7 +55,6 @@ class ViewController: UIViewController, UITextFieldDelegate{
         field.curveView()
         field.giveBorder(color: .lightGray)
         field.placeholder = "Add your comment here."
-//        field.textContainerInset = UIEdgeInsets.init(top: 2.1, left: 1.0, bottom: 1.0, right: 1.0)
         return field
     }()
     
@@ -223,8 +222,9 @@ class ViewController: UIViewController, UITextFieldDelegate{
         if self.isSearching == true {
             let index = (textField.text?.lastIndex(of: "@"))!
             let stringIndex = textField.text?.index(after: index)
-            let name = textField.text?.substring(from: stringIndex!)
-            self.updateSearchResult(forQueryText: name ?? "")
+            let name = String(textField.text?[stringIndex!...] ?? "")
+//            let name = textField.text?.substring(from: stringIndex!) ?? ""
+            self.updateSearchResult(forQueryText: name)
             self.tagTV.reloadData()
         }
             
@@ -369,11 +369,11 @@ extension ViewController : UITableViewDelegate, UITableViewDataSource {
         if tableView == self.tagTV {
             let index = self.replyField.text?.lastIndex(of: "@")
             if index != nil {
-                let string = self.replyField.text?.substring(to: index!)
+                let string = String(self.replyField.text?[..<index!] ?? "")
                 let stringToAdd = "@" + self.searchedFollowers[indexPath.row] + " "
                 var finalString = ""
                 if index != self.replyField.text?.startIndex {
-                    finalString = string! + stringToAdd
+                    finalString = string + stringToAdd
                 } else {
                     finalString = stringToAdd
                 }
