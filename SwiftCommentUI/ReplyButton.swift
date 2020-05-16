@@ -15,6 +15,7 @@ class ReplyButton : UIButton {
     
     var username: String?
     var rowNumber: Int?
+    var commentId: String?
     
     // MARK:- Initialization
     
@@ -33,6 +34,10 @@ class ReplyButton : UIButton {
     
     func setRowNumber(number: Int?) {
         self.rowNumber = number
+    }
+    
+    func setCommentId(commentId: String?) {
+        self.commentId = commentId
     }
     
     // MARK:- Deinit

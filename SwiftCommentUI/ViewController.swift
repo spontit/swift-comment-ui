@@ -15,11 +15,11 @@ class ViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate{
     private let followerNames : [String] = ["casey_k", "samlee393", "bestjoe", "kate046", "3_yvette", "mr_nick"]
     
     private var replyInfos: [Reply] = [
-        Reply(userId: "spontit_channel", itemId: "item", message: "I agree, Spontit is a great way to send push notifications.", taggedUser: [], timeStamp: "1 Hour"),
-        Reply(userId: "jacky12", itemId: "item", message: "@casey_k Check this out!", taggedUser: ["casey_k"], timeStamp: "50 min"),
-        Reply(userId: "casey_k", itemId: "item", message: "@qiuhao_zhang @casey_k Wow, thanks for sharing. Spontit is so easy to use!", taggedUser: ["qiuhao_zhang", "casey_k"], timeStamp: "40 min"),
-        Reply(userId: "Kate046", itemId: "item", message: "Spontit is FREE and a great service! I rated the Spontit app 5 stars on the App Store and starred their GitHub repository to show thanks.", taggedUser: [], timeStamp: "30 min"),
-        Reply(userId: "Mr_Nick", itemId: "item", message: "@lisaaaa I love Spontit!", taggedUser: ["lisaaaa"], timeStamp: "10 min")
+        Reply(userId: "spontit_channel", itemId: "item", message: "I agree, Spontit is a great way to send push notifications.", taggedUser: [], timeStamp: "1 Hour", commentId: "ReplyNo1"),
+        Reply(userId: "jacky12", itemId: "item", message: "@casey_k Check this out!", taggedUser: ["casey_k"], timeStamp: "50 min", commentId: "ReplyNo2"),
+        Reply(userId: "casey_k", itemId: "item", message: "@qiuhao_zhang @casey_k Wow, thanks for sharing. Spontit is so easy to use!", taggedUser: ["qiuhao_zhang", "casey_k"], timeStamp: "40 min", commentId: "ReplyNo3"),
+        Reply(userId: "Kate046", itemId: "item", message: "Spontit is FREE and a great service! I rated the Spontit app 5 stars on the App Store and starred their GitHub repository to show thanks.", taggedUser: [], timeStamp: "30 min", commentId: "ReplyNo4"),
+        Reply(userId: "Mr_Nick", itemId: "item", message: "@lisaaaa I love Spontit!", taggedUser: ["lisaaaa"], timeStamp: "10 min", commentId: "ReplyNo5")
     ]
     
     private let userProfilePictures : [String : UIImage] = ["spontit_channel" : #imageLiteral(resourceName: "Profile1"),
@@ -111,7 +111,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate{
             self.replyTV.trailingAnchor.constraint(equalTo:
                 self.view.trailingAnchor, constant: -5).isActive = true
         }
-        
+        self.loadData()
         self.textFieldEmbeddedView.addSubview(self.replyField)
         self.replyField.leadingAnchor.constraint(equalTo: self.textFieldEmbeddedView.leadingAnchor, constant: 7).isActive = true
         self.replyField.trailingAnchor.constraint(equalTo: self.textFieldEmbeddedView.trailingAnchor, constant: -7).isActive = true
@@ -150,8 +150,9 @@ class ViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate{
         if !textField.text!.isEmpty {
             self.reply.setMessage(message: textField.text)
             self.reply.setTimeStamp(time: "1 min")
+            self.reply.commentId = "CommentNo" + String(self.replyInfos.count + 2)
             self.replyInfos.append(self.reply)
-            self.replyTV.reloadData()
+            self.loadData()
         }
 
         // MARK:- TODO: Add-comment server integration here.
@@ -297,22 +298,26 @@ class ViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate{
     }
     
     @objc func likePressed(_ sender: ReplyButton) {
-        
-        self.replyInfos[sender.rowNumber!].isLiked!.toggle()
-        if self.replyInfos[sender.rowNumber!].isLiked! == true {
-             // MARK:- TODO: Add-comment-like server integration here.
-            sender.setImage(UIImage(imageLiteralResourceName: "Liked"), for: .normal)
-            self.replyInfos[sender.rowNumber!].likeCount! += 1
-            let cell = self.replyTV.cellForRow(at: IndexPath(row: sender.rowNumber!, section: 0)) as! ReplyCell
-            cell.likeCount.text = String(self.replyInfos[sender.rowNumber!].likeCount!)
-        } else {
-            // MARK:- TODO: Remove-comment-like server integration here.
-            sender.setImage(UIImage(imageLiteralResourceName: "Like"), for: .normal)
-            self.replyInfos[sender.rowNumber!].likeCount! -= 1
-            let cell = self.replyTV.cellForRow(at: IndexPath(row: sender.rowNumber!, section: 0)) as! ReplyCell
-            cell.likeCount.text = String(self.replyInfos[sender.rowNumber!].likeCount!)
+        for i in 0..<self.replyInfos.count {
+            if self.replyInfos[i].commentId == sender.commentId {
+                self.replyInfos[i].isLiked!.toggle()
+                if self.replyInfos[i].isLiked! == true {
+                     // MARK:- TODO: Add-comment-like server integration here.
+                    sender.setImage(UIImage(imageLiteralResourceName: "Liked"), for: .normal)
+                    self.replyInfos[i].likeCount! += 1
+                    let cell = self.replyTV.cellForRow(at: IndexPath(row: i, section: 0)) as! ReplyCell
+                    cell.likeCount.text = String(self.replyInfos[i].likeCount!)
+                } else {
+                    // MARK:- TODO: Remove-comment-like server integration here.
+                    sender.setImage(UIImage(imageLiteralResourceName: "Like"), for: .normal)
+                    self.replyInfos[i].likeCount! -= 1
+                    let cell = self.replyTV.cellForRow(at: IndexPath(row: i, section: 0)) as! ReplyCell
+                    cell.likeCount.text = String(self.replyInfos[i].likeCount!)
+                }
+            }
         }
-        self.replyTV.reloadData()
+        
+        self.loadData()
     }
     
     // MARK:- Deinit
@@ -345,6 +350,7 @@ extension ViewController : UITableViewDelegate, UITableViewDataSource {
             cell.replyInfo.message?.boldTaggedUsers(reply: cell.replyInfo, textView: cell.replyTextView)
             cell.timeStamp.text = cell.replyInfo.timeStamp
             cell.likeButton.setRowNumber(number: indexPath.row)
+            cell.likeButton.setCommentId(commentId: cell.replyInfo.commentId)
             cell.likeCount.text = String(cell.replyInfo.likeCount!)
             cell.replyTextView.delegate = self
             if cell.replyInfo.isLiked == true {

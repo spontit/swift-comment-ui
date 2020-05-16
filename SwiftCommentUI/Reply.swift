@@ -48,7 +48,7 @@ struct Reply {
         self.isLiked = false
     }
     
-    init(userId: String?, itemId: String?, message: String?, taggedUser: [String]?, timeStamp: String?) {
+    init(userId: String?, itemId: String?, message: String?, taggedUser: [String]?, timeStamp: String?, commentId: String?) {
         self.userId = userId
         self.itemId = itemId
         self.message = message
@@ -56,6 +56,7 @@ struct Reply {
         self.timeStamp = timeStamp
         self.likeCount = 0
         self.isLiked = false
+        self.commentId = commentId
     }
     
     // MARK:- Mutating Functions
