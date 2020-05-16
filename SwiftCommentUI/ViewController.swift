@@ -35,6 +35,7 @@ class ViewController: UIViewController, UITextFieldDelegate{
     ]
     
     // MARK:- Internal Globals
+    
     private var keyboardHeight : CGFloat = 0
     private var keyboardWidth : CGFloat = 0
     private var replyTV: ReplyTableView = ReplyTableView(frame: .zero)
@@ -65,8 +66,6 @@ class ViewController: UIViewController, UITextFieldDelegate{
         return view
     }()
     
-    // MARK:- TODO: Get-comments server integration here.
-    
     private var reply: Reply = Reply(userId: "qiuhao_zhang", itemId: "item")
 
     // MARK:- Overriden Functions
@@ -78,9 +77,12 @@ class ViewController: UIViewController, UITextFieldDelegate{
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
         
+        self.loadData()
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         self.replyField.becomeFirstResponder()
         self.replyField.resignFirstResponder()
     }
@@ -147,8 +149,6 @@ class ViewController: UIViewController, UITextFieldDelegate{
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        // MARK:- TODO: Add-comment server integration here.
-        
         if !textField.text!.isEmpty {
             self.reply.setMessage(message: textField.text)
             self.reply.setTimeStamp(time: "1 min")
@@ -156,6 +156,7 @@ class ViewController: UIViewController, UITextFieldDelegate{
             self.replyTV.reloadData()
         }
 
+        // MARK:- TODO: Add-comment server integration here.
         textField.resignFirstResponder()
         textField.text = ""
         self.textFieldBottomConstraint2.isActive = false
@@ -165,6 +166,11 @@ class ViewController: UIViewController, UITextFieldDelegate{
         self.replyTV.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         self.replyTV.scrollToRow(at: IndexPath(row: self.replyInfos.count - 1, section: 0), at: .bottom, animated: true)
         return true
+    }
+    
+    private func loadData() {
+        // MARK:- TODO: Get-comments server integration here.
+        self.replyTV.reloadData()
     }
     
     private func updateSearchResult(forQueryText text : String) {
@@ -207,7 +213,6 @@ class ViewController: UIViewController, UITextFieldDelegate{
     
     @objc func profileImageTouched(_ recognizer: UITapGestureRecognizer) {
         // MARK:- TODO: View profile from comment here.
-        print ("touched")
     }
     
     @objc func textFieldDidBeginEditing(_ textField: UITextField) {
@@ -223,7 +228,6 @@ class ViewController: UIViewController, UITextFieldDelegate{
             let index = (textField.text?.lastIndex(of: "@"))!
             let stringIndex = textField.text?.index(after: index)
             let name = String(textField.text?[stringIndex!...] ?? "")
-//            let name = textField.text?.substring(from: stringIndex!) ?? ""
             self.updateSearchResult(forQueryText: name)
             self.tagTV.reloadData()
         }
@@ -231,7 +235,6 @@ class ViewController: UIViewController, UITextFieldDelegate{
     }
     
     @objc func textFieldDidEndEditing(_ textField: UITextField) {
-        // MARK:- TODO: Get-comments server integration here.
         let text = textField.text
         if text != nil {
             let textArray = text!.split(separator: " ")
@@ -261,7 +264,6 @@ class ViewController: UIViewController, UITextFieldDelegate{
         self.textFieldBottomConstraint1.isActive = false
         self.textFieldBottomConstraint2.isActive = true
         self.replyTV.setBottomInset(to: keyboardHeight)
-        
         self.view.setNeedsLayout()
     }
     
@@ -270,10 +272,8 @@ class ViewController: UIViewController, UITextFieldDelegate{
         self.textFieldBottomConstraint2.isActive = false
         self.textFieldBottomConstraint1.isActive = true
         self.replyTV.setBottomInset(to: 0.0)
-        
         self.replyField.text = ""
         self.replyTV.setBottomInset(to: 0.0)
-        print("keyboard hide")
     }
     
     @objc func replyPressed(_ sender: ReplyButton) {
@@ -293,15 +293,16 @@ class ViewController: UIViewController, UITextFieldDelegate{
     }
     
     @objc func likePressed(_ sender: ReplyButton) {
-        // MARK:- TODO: Add-comment-like server integration here.
         
         self.replyInfos[sender.rowNumber!].isLiked!.toggle()
         if sender.currentImage == UIImage(imageLiteralResourceName: "Like") {
+             // MARK:- TODO: Add-comment-like server integration here.
             sender.setImage(UIImage(imageLiteralResourceName: "Liked"), for: .normal)
             self.replyInfos[sender.rowNumber!].likeCount! += 1
             let cell = self.replyTV.cellForRow(at: IndexPath(row: sender.rowNumber!, section: 0)) as! ReplyCell
             cell.likeCount.text = String(self.replyInfos[sender.rowNumber!].likeCount!)
         } else {
+            // MARK:- TODO: Remove-comment-like server integration here.
             sender.setImage(UIImage(imageLiteralResourceName: "Like"), for: .normal)
             self.replyInfos[sender.rowNumber!].likeCount! -= 1
             let cell = self.replyTV.cellForRow(at: IndexPath(row: sender.rowNumber!, section: 0)) as! ReplyCell
@@ -312,8 +313,7 @@ class ViewController: UIViewController, UITextFieldDelegate{
     
     // MARK:- Deinit
     deinit {
-        // MARK:- TODO: Remove-comment server integration here.
-        // MARK:- TODO: Remove-comment-like server integration here.
+        
     }
 }
 
@@ -395,7 +395,6 @@ extension ViewController : UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         if tableView == self.replyTV {
-            // MARK:- TODO: Get-comments server integration here.
             if self.replyInfos[indexPath.row].userId == "qiuhao_zhang" {
                 return true
             } else {
@@ -406,7 +405,6 @@ extension ViewController : UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        // MARK:- TODO: Get-comments server integration here.
         if self.replyInfos[indexPath.row].userId == "qiuhao_zhang" {
             if editingStyle == .delete {
                 self.replyInfos.remove(at: indexPath.row)
