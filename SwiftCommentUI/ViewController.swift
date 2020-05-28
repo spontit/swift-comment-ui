@@ -12,7 +12,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate{
     
     // MARK:- Test Data
     
-    private let followerNames : [String] = ["casey_k", "samlee393", "bestjoe", "kate046", "3_yvette", "mr_nick"]
+    private let followerNames : [String] = ["casey_k", "samlee393", "bestjoe", "Kate046", "3_yvette", "Mr_Nick"]
     
     private var replyInfos: [Reply] = [
         Reply(userId: "spontit_channel", itemId: "item", message: "I agree, Spontit is a great way to send push notifications.", taggedUser: [], timeStamp: "1 Hour"),

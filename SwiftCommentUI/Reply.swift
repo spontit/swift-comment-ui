@@ -13,6 +13,7 @@ struct Reply {
     // MARK:- Attributes
     
     var userId: String?
+    var displayName: String?
     var itemId: String?
     var message: String?
     var taggedUser: [String]?
@@ -26,6 +27,14 @@ struct Reply {
     
     init(userId: String?, itemId: String?) {
         self.userId = userId
+        self.itemId = itemId
+        self.likeCount = 0
+        self.isLiked = false
+    }
+    
+    init(userId: String?, displayName: String?, itemId: String?) {
+        self.userId = userId
+        self.displayName = displayName
         self.itemId = itemId
         self.likeCount = 0
         self.isLiked = false
