@@ -13,8 +13,10 @@ This repository is a pre-built comment section UI developed in Swift. You can co
     <img width=200 src="https://github.com/spontit/swift-comment-ui/raw/master/ScreenShots/IMG_1327.PNG" /> 
 </p>
 
-## Test it Out and Integrate
+## Test it Out
 You can build the UI and run on an iOS simulator as is to test it out. View the comment UI Swift files <a href="https://github.com/spontit/swift-comment-ui/tree/master/SwiftCommentUI">here</a>. 
+
+## Integrate
 
 To integrate the UI with your server, see the markers "MARK:- TODO", which is outlined below.
 
