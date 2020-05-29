@@ -1,6 +1,9 @@
 # Swift Comment UI
 A Comment UI for Swift
 
+##
+Built by Qiuhao Zhang, a Software Developer at Spontit. Check out the Spontit API for sending your own push notifications <a href="https://github.com/spontit/spontit-api-python-wrapper">here</a>.
+
 ## About
 The swift comment UI is a simple program that can display users' comments in a table view. With the "like" and "reply" button you can like or reply to a comment. When typing a reply, the followers table will show up after "@" is typed to help you select friends or followers you want to tag. The tagged users will automatically set to bold in the text view. You can also delete the comment sent by yourself by simply swiping left.
 
