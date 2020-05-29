@@ -23,7 +23,7 @@ To integrate the UI with your server, see the markers "MARK:- TODO", which is ou
 Command + F "MARK:- TODO" in the <a href="https://github.com/spontit/swift-comment-ui/blob/master/SwiftCommentUI/ViewController.swift">ViewController.swift</a> file to see where to customize the following parts.
 - Get comments: load all the comments to the table
 - View profile from comment: view the user profile by tapping the profile image
-- View profile from tag: view the user profile by tapping the tagged user in the comment text.
+- View profile from tag: view the user profile by tapping the tagged user in the comment text
 - Like a comment: increment the like count of the comment
 - Remove a like from a comment: decrement the like count of the comment
 - Add a comment: add a new comment to the server
