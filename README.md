@@ -10,7 +10,7 @@ The swift comment UI is a simple program that can display users' comments in a t
     <img width=200 src="https://github.com/spontit/swift-comment-ui/raw/master/ScreenShots/IMG_1327.PNG" /> 
 </p>
 
-## How to use
+## Test it Out and Integrate
 You can build the UI and run on an iOS simulator as is to test it out. View the comment UI Swift files <a href="https://github.com/spontit/swift-comment-ui/tree/master/SwiftCommentUI">here</a>. 
 
 To integrate the UI with your server, see the markers "MARK:- TODO", which is outlined below.
